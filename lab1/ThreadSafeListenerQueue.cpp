@@ -4,13 +4,23 @@
 
 #include "ThreadSafeListenerQueue.h"
 
+/*
+ * --- Constructor ---
+ * Intialize the queue and mutex
+ */
 template <typename T> ThreadSafeListenerQueue<T>::ThreadSafeListenerQueue() {
     queue = new std::list<T>;
     pthread_mutex_init(&mutexLock, NULL);
 }
 
+/*
+ * --- Destructor ---
+ * Remove any dynamic vars
+ */
+
 template <typename T> ThreadSafeListenerQueue<T>::~ThreadSafeListenerQueue() {
     delete queue;
+    delete mutexLock;
 }
 
 /*

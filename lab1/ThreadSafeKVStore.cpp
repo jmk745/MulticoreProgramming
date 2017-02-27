@@ -126,19 +126,6 @@ template<typename K, typename V> bool ThreadSafeKVStore<K, V>::contains(const K 
 }
 
 
-/*
- *
- */
-template<typename K, typename V> void ThreadSafeKVStore<K, V>::print(){
-
-    pthread_mutex_lock(&mutexLock);
-    for(auto it : *map){
-        printf("Key: %i\tValue: %c\n", it.first, it.second);
-    }
-    pthread_mutex_unlock(&mutexLock);
-};
-
-
 //The following methods are Not thread safe. Beware
 
 template <typename K, typename V> typename std::unordered_map<K, V>::iterator ThreadSafeKVStore<K, V>::begin(){
