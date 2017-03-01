@@ -17,7 +17,7 @@ template <typename K, typename V> class ThreadSafeKVStore{
         ~ThreadSafeKVStore<K, V>();
         int insert(const K key, const V value);
         int accumulate(const K key, const V value);
-        int lookup(const K key, V& value) const;
+        int lookup(const K key, V& value);
         int remove(const K key);
         typename std::unordered_map<K, V>::iterator begin();
         typename std::unordered_map<K, V>::iterator end();

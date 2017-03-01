@@ -7,7 +7,7 @@
 
 template<typename K, typename V> ThreadSafeKVStore<K, V>::ThreadSafeKVStore(){
     map = new std::unordered_map<K, V>;
-    pthread_mutex_init(&mutexLock, NULL);
+    mutexLock = PTHREAD_MUTEX_INITIALIZER;
 }
 template<typename K, typename V> ThreadSafeKVStore<K, V>::~ThreadSafeKVStore(){
     delete map;
@@ -22,11 +22,14 @@ template<typename K, typename V> ThreadSafeKVStore<K, V>::~ThreadSafeKVStore(){
  */
 template <typename K, typename V> int ThreadSafeKVStore<K, V>::insert(const K key, const V value){
 
+    //
+    // ---- Critical Zone: START ---
+    //
     pthread_mutex_lock(&mutexLock);
     try {
         auto current = map->find(key);
 
-        if ( current != map->end() )
+        if (current != map->end())
             current->second = value;
 
         else
@@ -39,6 +42,9 @@ template <typename K, typename V> int ThreadSafeKVStore<K, V>::insert(const K ke
         pthread_mutex_unlock(&mutexLock);
         return -1;
     }
+    //
+    // ---- Critical Zone: END ---
+    //
 }
 
 /*
@@ -52,8 +58,11 @@ template <typename K, typename V> int ThreadSafeKVStore<K, V>::insert(const K ke
 
 template <typename K, typename V> int ThreadSafeKVStore<K, V>::accumulate(const K key, const V value){
 
+    //
+    // ---- Critical Zone: START ---
+    //
+    pthread_mutex_lock(&mutexLock);
     try {
-        pthread_mutex_lock(&mutexLock);
         auto it = map->find(key);
 
         if (it != map->end())
@@ -69,6 +78,9 @@ template <typename K, typename V> int ThreadSafeKVStore<K, V>::accumulate(const 
         pthread_mutex_unlock(&mutexLock);
         return -1;
     }
+    //
+    // ---- Critical Zone: END ---
+    //
 }
 
 
@@ -76,15 +88,27 @@ template <typename K, typename V> int ThreadSafeKVStore<K, V>::accumulate(const 
  * Return 0 if the key is present, -1 otherwise. If the key is present, fill the value variable (passed by
  * reference) with the associated value.
  */
-template <typename K, typename V> int ThreadSafeKVStore<K, V>::lookup(const K key, V& value) const{
+template <typename K, typename V> int ThreadSafeKVStore<K, V>::lookup(const K key, V& value){
 
+    //
+    // ---- Critical Zone: START ---
+    //
+    pthread_mutex_lock(&mutexLock);
+
+    bool found = false;
     for(auto it : *map){
         if(it.first == key){
             it.second = value;
-            return 0;
+            found = true;
+            break;
         }
     }
-    return -1;
+    pthread_mutex_unlock(&mutexLock);
+    return found ? 0:-1;
+
+    //
+    // ---- Critical Zone: END ---
+    //
 
 }
 
@@ -125,6 +149,16 @@ template<typename K, typename V> bool ThreadSafeKVStore<K, V>::contains(const K 
     return false;
 }
 
+/*
+ * Returns the current size of the KV Store
+ */
+template  <typename K, typename V> int ThreadSafeKVStore<K, V>::size(){
+    pthread_mutex_lock(&mutexLock);
+    long temp = map->size();
+    pthread_mutex_unlock(&mutexLock);
+    return temp;
+
+};
 
 //The following methods are Not thread safe. Beware
 
@@ -136,6 +170,3 @@ template <typename K, typename V> typename std::unordered_map<K, V>::iterator Th
     return map->end();
 };
 
-template  <typename K, typename V> int ThreadSafeKVStore<K, V>::size(){
-    return map->size();
-};

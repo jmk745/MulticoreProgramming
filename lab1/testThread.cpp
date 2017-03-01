@@ -40,9 +40,11 @@ void* testThread(void* obj){
     pthread_mutex_t* count_mutex = wrappedObject->mutex_lock;
 
 
+
     //Get a random seed and initialize a control vector in order to check that all threads are synchronized;
     srand(time(NULL));
     std::vector<std::pair<std::string, int>> control_vector;
+
 
 
     //Step 1 and Step 2
@@ -76,7 +78,7 @@ void* testThread(void* obj){
             run_sum = run_sum + random_value;
 
             control_vector.push_back(make_pair(user_key, random_key));
-            if(KV_store->accumulate(user_key, random_value)==-1)
+            if(KV_store->accumulate(user_key, random_value)==-1)       //storing the value in the KV store DS
                 printf("ERROR: method accumulate has failed...\n");
         }
     }
@@ -91,7 +93,7 @@ void* testThread(void* obj){
     thread_run_time[*thread_count] = difftime(thread_end_time, thread_start_time) / CLOCKS_PER_SEC;
     *missing_count += missing_lookups;
 
-    printf("Thread %i\nRun time:     \t\t%f seconds\nPushed run_sum:     \t%li\nNumber of Missing Keys: %i\n\n\n",
+    printf("Thread %i\nRun time:      \t\t  %f seconds\nPushed run_sum:       \t  %li\nNumber of Missing Keys:   %i\n\n\n",
            *thread_count, thread_run_time[*thread_count], run_sum, missing_lookups);
 
     (*thread_count)++;

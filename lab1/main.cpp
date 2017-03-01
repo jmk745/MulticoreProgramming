@@ -85,9 +85,10 @@ int main(int argc, char** argv){
 
     // --- Running Multi Threads ---
     //Creating threads and storing them in an array
-    pthread_t threads[MAX_NUMBER_OF_THREADS];
+    pthread_t thread;
     for(int i=0; i<num_of_threads; i++){
-        pthread_create(&threads[i], NULL, testThread, &objWrapper);
+        pthread_create(&thread, NULL, testThread, &objWrapper);
+        pthread_detach(thread);
     }
     printf("Started threads..\n\n");
 
