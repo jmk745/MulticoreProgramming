@@ -17,7 +17,7 @@
 
 using namespace std;
 
-const int MAX_NUMBER_OF_THREADS = 20;
+const int MAX_NUMBER_OF_THREADS = 30;
 
 
 int main(int argc, char** argv){
