@@ -20,6 +20,7 @@ struct wrapper{
     int* thread_counter;
     int* missing_count;
     double* thread_array;
+    std::vector<double>* thread_vector;
     pthread_mutex_t* mutex_lock;
 };
 
@@ -36,7 +37,7 @@ void* testThread(void* obj){
     ThreadSafeListenerQueue<int>* listener_queue = (ThreadSafeListenerQueue<int>*) wrappedObject->queue;
     int* thread_count = wrappedObject->thread_counter;
     int* missing_count = wrappedObject->missing_count;
-    double* thread_run_time = wrappedObject->thread_array;
+    std::vector<double>* thread_run_time_v = wrappedObject->thread_vector;
     pthread_mutex_t* count_mutex = wrappedObject->mutex_lock;
 
 
@@ -90,11 +91,11 @@ void* testThread(void* obj){
     // ---- Critical Zone: START ---
     //
     pthread_mutex_lock(count_mutex);
-    thread_run_time[*thread_count] = difftime(thread_end_time, thread_start_time) / CLOCKS_PER_SEC;
+    (*thread_run_time_v).at(*thread_count) = difftime(thread_end_time, thread_start_time) / CLOCKS_PER_SEC;
     *missing_count += missing_lookups;
 
     printf("Thread %i\nRun time:      \t\t  %f seconds\nPushed run_sum:       \t  %li\nNumber of Missing Keys:   %i\n\n\n",
-           *thread_count, thread_run_time[*thread_count], run_sum, missing_lookups);
+           *thread_count, (*thread_run_time_v).at(*thread_count), run_sum, missing_lookups);
 
     (*thread_count)++;
     pthread_mutex_unlock(count_mutex);

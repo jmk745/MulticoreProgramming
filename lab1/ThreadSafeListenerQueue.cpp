@@ -65,7 +65,7 @@ template <typename T> int ThreadSafeListenerQueue<T>::pop(T& element){
 template <typename T> int ThreadSafeListenerQueue<T>::listen(T& element){
     try {
         while (queue->empty()){} //wait until list has an element;
-        return ThreadSafeListenerQueue<T>::pop(element);
+        return ThreadSafeListenerQueue<T>::pop(element); // using a thread safe method here so no locks necessary
     }catch(std::exception e){
         return -1;
     }

@@ -45,8 +45,8 @@ int main(int argc, char** argv){
         return -1;
     }
 
-    if(num_of_threads < 1 || num_of_threads > MAX_NUMBER_OF_THREADS) {
-        printf("Error: Invalid number of threads. Please enter a number between 1 and %i inclusively.\n", MAX_NUMBER_OF_THREADS);
+    if(num_of_threads < 1) {
+        printf("Error: Invalid number of threads. Please enter a number greater than 0.\n");
         return -1;
     }
 
@@ -70,6 +70,7 @@ int main(int argc, char** argv){
     int thread_count=0; //counter used for counting the current thread during print out
     int missing_count=0; //num of keys that were missed during look up
     double  thread_run_time[MAX_NUMBER_OF_THREADS]; //array storing the run time for each thread
+    vector<double> thread_run_time_v (num_of_threads); // NOTE !!!!!!!!!!!!!!
     pthread_mutex_t count_mutex = PTHREAD_MUTEX_INITIALIZER; // mutex for threads accessing the thread & missing counters
 
     //Declaring all elements of object
@@ -80,6 +81,7 @@ int main(int argc, char** argv){
     objWrapper.thread_array = thread_run_time;
     objWrapper.missing_count = &missing_count;
     objWrapper.mutex_lock = &count_mutex;
+    objWrapper.thread_vector = &thread_run_time_v; // NOTE !!!!!!!!!!!
 
 
 
@@ -103,6 +105,8 @@ int main(int argc, char** argv){
         count++;
     }
 
+
+
     // --- Calculating the Check Sum ---
     // Iterate through the KV_store DS and used the recorded sum to compare against the sum achieved from
     // the ThreadSafe Queue.. Needed to check for thread synchronization
@@ -117,7 +121,7 @@ int main(int argc, char** argv){
     // Iterate through the array to get the sum of all the values. Used later for finding the average
     double total_thread_time;
     for(int i=0; i<num_of_threads; i++){
-        total_thread_time+=thread_run_time[i];
+        total_thread_time+=thread_run_time_v[i];
     }
 
     //Print out Conclusion of the test threads
