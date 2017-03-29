@@ -77,10 +77,12 @@ void* task_GET( void* input){
 
 
 void* task_POST( void* input ){
+    printf("Performing task_POST\n");
     task_container* container = (task_container*)input;
     container->kv_store->insert(container->key, container->value);
-    container->md5_store->insert(container->key, md5("grape"));
+    container->md5_store->insert(container->key, md5( container->key ));
     respond_to_request(container);
+    printf("Completed task_POST\n");
     return nullptr;
 }
 
@@ -165,9 +167,10 @@ int main(int argc, char *argv[])
 
         task_container* task_data = new task_container();
         task_data->kv_store = key_value_store;
+        task_data->md5_store = md5_hash_store;
         task_data->key = request_uri.substr(1);
         task_data->value = request_body;
-        task_data->socket = new_sockfd;
+        task_data->socket = new_sockfd;a
         task_data->method = request_method;
 
         if(request_method.compare("GET")==0){

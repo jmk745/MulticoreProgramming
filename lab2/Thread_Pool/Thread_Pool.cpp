@@ -65,7 +65,7 @@ void Thread_Pool::work_thread() {
         //perform task on passed in data set
         queue_container* next_task;
         if( (next_task = tasks->dequeue()) != NULL ){
-            printf("Going to perform task\n");
+//            printf("Going to perform task\n");
             next_task->fn(next_task->data);
         }
         delete next_task;
@@ -84,24 +84,25 @@ void Thread_Pool::work_thread2() {
         pthread_mutex_lock(&mutex);
 
         while ( tasks->isEmpty() && thread_pool_status ) {
-            printf("%ld is Waiting...\n", (long)pthread_self());
+//            printf("%ld is Waiting...\n", (long)pthread_self());
             pthread_cond_wait(&thread_condition_variable, &mutex);
-            printf("%ld is Running...\n", (long)pthread_self());
+//            printf("%ld is Running...\n", (long)pthread_self());
         }
 
         pthread_mutex_unlock(&mutex);
 
         queue_container* next_task = tasks->dequeue();
 
-        //Do the work
-        printf("%ld is Working...\n", (long)pthread_self());
 
-        if(next_task != NULL)
+        //Do the work
+        if(next_task != NULL) {
+            printf("%ld is Working...\n", (long)pthread_self());
             next_task->fn(next_task->data);
+        }
 
         delete next_task;
     }
-            printf("%ld is Terminating...\n", (long)pthread_self());
+//            printf("%ld is Terminating...\n", (long)pthread_self());
             pthread_exit(0);
 }
 
