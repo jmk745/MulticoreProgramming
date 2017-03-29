@@ -1,10 +1,5 @@
 CC=g++
-cFlag=-c -std=c++11 -pthread
-
-
-
-# lab2: main.o Thread_Pool.o Thread_Safe_KV_Store_2.o Thread_Safe_Queue.o
-	# ${CC} main.o Thread_Pool.o Thread_Safe_KV_Store_2.o Thread_Safe_Queue.o -o lab2
+cFlag=-c -std=c++0x -pthread
 
 server.out: Threaded_Server.o Thread_Safe_KV_Store_2.o Thread_Pool.o httpreq.o httpresp.o
 	${CC} Threaded_Server.o Thread_Safe_KV_Store_2.o Thread_Pool.o httpreq.o httpresp.o -o server.out
