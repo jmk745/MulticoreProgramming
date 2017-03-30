@@ -6,14 +6,20 @@
 
 
 
+/*
+ * Constructor: responsible for initiliazing the conditon variable, mutex, as well
+ * as the tasks queue
+ */
 Thread_Pool::Thread_Pool() {
     tasks = new Thread_Safe_Queue<queue_container*>();
     pthread_cond_init(&thread_condition_variable, NULL);
-    pthread_cond_init(&destroy_condition_variable, NULL);
     pthread_mutex_init(&mutex, NULL);
 }
 
-
+/*
+ * Initialize the thread pool with the inputed number of threads
+ * Ensure that the threads enter their working_thread routine
+ */
 void Thread_Pool::init(int size){
     thread_pool_size = size;
     thread_pool_status = 1; // 1 represents True or Running ... 0 is shut down
@@ -25,11 +31,13 @@ void Thread_Pool::init(int size){
 }
 
 
+/*
+ * Chnage status of the thread pool to off ad wait for all threads to complete their tasks as well as any
+ * remianing queued tasks. (Chnaging the thread_pool_status also prevents users from adding any additonal tasks to the
+ * the task queue)
+ */
 Thread_Pool::~Thread_Pool() {
 
-//    if( !tasks->isEmpty() ){
-//        pthread_cond_wait(&destroy_condition_variable, &mutex);
-//    }
     pthread_mutex_lock(&mutex);
     thread_pool_status = 0; //shut down status
     pthread_mutex_unlock(&mutex);
@@ -43,58 +51,33 @@ Thread_Pool::~Thread_Pool() {
 
     delete pool;
     pthread_cond_destroy(&thread_condition_variable);
-    pthread_cond_destroy(&destroy_condition_variable);
     pthread_mutex_destroy(&mutex);
 }
 
 
+
+//This thread_function keeps the thread running until the pool status is marked for deletion
+// and there are tasks queued.
+//Thus, the thread pool will never end prematurely unless an exception/error occurs
 void Thread_Pool::work_thread() {
 
-    pthread_mutex_lock(&mutex);
-    while(thread_pool_status != 0) {
-
-        while(thread_pool_status==1 && tasks->isEmpty()) {
-            printf("red for %ld\n", (long)pthread_self());
-            pthread_cond_signal(&destroy_condition_variable);
-            pthread_cond_wait(&thread_condition_variable, &mutex);
-            printf("GREEN for %ld\n", (long)pthread_self());
-        }
-
-        pthread_mutex_unlock(&mutex);
-
-        //perform task on passed in data set
-        queue_container* next_task;
-        if( (next_task = tasks->dequeue()) != NULL ){
-//            printf("Going to perform task\n");
-            next_task->fn(next_task->data);
-        }
-        delete next_task;
-
-        pthread_mutex_lock(&mutex);
-    }
-    pthread_mutex_unlock(&mutex);
-    pthread_exit(NULL);
-}
-
-
-void Thread_Pool::work_thread2() {
 
     while (thread_pool_status || !tasks->isEmpty()) {
 
+        //
+        // Critical Zone --- Start ---
+        //
         pthread_mutex_lock(&mutex);
-
         while ( tasks->isEmpty() && thread_pool_status ) {
-//            printf("%ld is Waiting...\n", (long)pthread_self());
-            pthread_cond_wait(&thread_condition_variable, &mutex);
-//            printf("%ld is Running...\n", (long)pthread_self());
+            pthread_cond_wait(&thread_condition_variable, &mutex); //sleep until next taks is assigned
         }
-
         pthread_mutex_unlock(&mutex);
+        //
+        // Critical Zone --- End ---
+        //
 
+        // Dequeue the pending job and exeute it on the attached data
         queue_container* next_task = tasks->dequeue();
-
-
-        //Do the work
         if(next_task != NULL) {
             printf("%ld is Working...\n", (long)pthread_self());
             next_task->fn(next_task->data);
@@ -107,15 +90,11 @@ void Thread_Pool::work_thread2() {
 }
 
 
-void test_fn(){
-    printf("DOING WORK\n");
-}
-
-
 /*
- * Add the prewritten task/function and include that data that it will be operationg on.
+ * Add the pre-written task/function and include that data that it will be operating on.
  * This method packages those 2 items into one container and inserts it onto a queue.
- * Then the spwaned threads will unpackage the contianer nd perform the speciied actions
+ * Then the spawned threads will unpackage the container nd perform the specified actions
+ * Method will stop adding tasks once the thread_pool is marked for destruction
  */
 int Thread_Pool::add_task( void* (*task)(void*), void* data ) {
     try{
@@ -137,8 +116,9 @@ int Thread_Pool::add_task( void* (*task)(void*), void* data ) {
 }
 
 //wrapper function idea from https://github.com/bilash/threadpool/blob/master/ThreadPool.cpp
+//
 void* wrapper_function(void* argument){
     Thread_Pool* thread_pool = (Thread_Pool*) argument;
-    thread_pool->work_thread2(); //execute the member function for the thread
+    thread_pool->work_thread(); //execute the member function for the thread
     pthread_exit(0);
 }

@@ -36,8 +36,6 @@ private:
     Thread_Safe_Queue <queue_container*> *tasks;
     pthread_mutex_t mutex;
     pthread_cond_t thread_condition_variable;
-    pthread_cond_t destroy_condition_variable;
-
 };
 
 void* wrapper_function(void*);
