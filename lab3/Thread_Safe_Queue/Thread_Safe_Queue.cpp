@@ -129,7 +129,7 @@ int Thread_Safe_Queue<T>::calculate_statistics() {
 
         //GET MEDIAN
         if (_count > 0) {
-            std::sort (vect.begin(), vect.end());
+            sort (vect.begin(), vect.end());
             int med_index = (_count / 2);
             if (_count % 2 != 0) { _median = vect[med_index]; }
             else { _median = (vect[med_index] + vect[med_index - 1]) / 2.0; }

@@ -18,7 +18,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../lab1/main.cpp" afterPath="$PROJECT_DIR$/../lab1/main.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../lab1/testThread.cpp" afterPath="$PROJECT_DIR$/../lab1/testThread.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp" afterPath="$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp" afterPath="$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,17 +30,17 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Thread_Safe_Queue.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Thread_Safe_Queue.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="163" column="21" lean-forward="true" selection-start-line="163" selection-start-column="21" selection-end-line="163" selection-end-column="21" />
+            <state relative-caret-position="173">
+              <caret line="131" column="12" lean-forward="false" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="12" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Threaded_Server.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Threaded_Server.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="131">
@@ -71,8 +70,8 @@
         <option value="$PROJECT_DIR$/Thread_Safe_Listener_Queue/ThreadSafeListenerQueue.cpp" />
         <option value="$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.h" />
         <option value="$PROJECT_DIR$/Thread_Safe_Queue/test_for_Thread_Safe_Queue.cpp" />
-        <option value="$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp" />
         <option value="$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp" />
+        <option value="$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp" />
       </list>
     </option>
   </component>
@@ -356,12 +355,12 @@
       <updated>1491771907464</updated>
       <workItem from="1491771909139" duration="1294000" />
       <workItem from="1491793623129" duration="6010000" />
-      <workItem from="1491846975927" duration="11770000" />
+      <workItem from="1491846975927" duration="11851000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19074000" />
+    <option name="totallyTimeSpent" value="19155000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -452,18 +451,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="163" column="21" lean-forward="true" selection-start-line="163" selection-start-column="21" selection-end-line="163" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
           <caret line="61" column="58" lean-forward="false" selection-start-line="61" selection-start-column="58" selection-end-line="61" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="131" column="12" lean-forward="false" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="12" />
           <folding />
         </state>
       </provider>
