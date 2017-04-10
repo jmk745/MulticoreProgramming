@@ -1,0 +1,3 @@
+/Users/james/GitSpace/MulticoreProgramming/lab3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/james/GitSpace/MulticoreProgramming/lab3/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/james/GitSpace/MulticoreProgramming/lab3/cmake-build-debug/CMakeFiles/lab2.dir
