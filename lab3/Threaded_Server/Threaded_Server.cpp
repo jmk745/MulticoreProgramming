@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <signal.h>
 
 #include "../httpreq/httpreq.hpp"
 #include "../httpreq/httpresp.hpp"
@@ -19,7 +20,11 @@
 #include "../md5/md5.h"
 #include "../md5/md5.cpp"
 
-int new_sockfd;
+int sockfd, new_sockfd;
+Thread_Pool* thread_pool;
+int GET_COUNT=0;
+int POST_COUNT=0;
+int DELETE_COUNT=0;
 
 /*
  * struct used to store pointers and data for the post, get, and delete functions.
@@ -40,6 +45,17 @@ typedef struct{
 void error(const char *msg) {
     perror(msg);
     exit(1);
+}
+
+void SIGINT_handler(int signo)
+{
+    if (signo == SIGINT){
+        delete thread_pool;
+        printf("\n-----Statistics-----\nGET: %i\nPOST: %i\nDELETE: %i\n\n\n", GET_COUNT, POST_COUNT, DELETE_COUNT);
+//        close(new_sockfd);
+//        close(sockfd);
+    }
+
 }
 
 
@@ -136,14 +152,10 @@ void* task_DELETE( void* input ){
  * main function needed to initialize the thread pool and run an infinite loop for the the socket
  * the running binary to accept new connections and process the requests
  */
-unsigned long get_count = 0;
-unsigned long post_count = 0;
-unsigned long delete_count = 0;
 
 int main(int argc, char *argv[])
 {
-//  int  new_sockfd,
-    int sockfd, port_number;
+    int port_number;
     socklen_t client_length;
     struct sockaddr_in server_address, client_address;
 
@@ -189,7 +201,7 @@ int main(int argc, char *argv[])
 
 
 //    Initialize the thread pool and launch all threads.
-    Thread_Pool* thread_pool = new Thread_Pool();
+    thread_pool = new Thread_Pool();
     thread_pool->init(number_of_threads);
 
     //Initialize Thread Safe KV stores for the key and string as well as the hash values
@@ -205,10 +217,11 @@ int main(int argc, char *argv[])
     //Listen for incoming connections
     listen(sockfd,5);
     client_length = sizeof(client_address);
-
+    signal(SIGINT, SIGINT_handler);
 
     //Infinite loop in order for server to receive all requests
     while(true){
+
 //      create new connection
         new_sockfd = accept(sockfd,(struct sockaddr *) &client_address,&client_length);
 
@@ -233,12 +246,15 @@ int main(int argc, char *argv[])
 
         //handle process accordingly to the request
         if(request_method.compare("GET")==0){
+            GET_COUNT++;
             thread_pool->add_task(&task_GET, (void*)task_data);
         }
         else if(request_method.compare("POST")==0){
+            POST_COUNT++;
             thread_pool->add_task(&task_POST, (void*)task_data);
         }
         else if(request_method.compare("DELETE")==0){
+            DELETE_COUNT++;
             thread_pool->add_task(&task_DELETE, (void*)task_data);
         }
     }
@@ -246,10 +262,7 @@ int main(int argc, char *argv[])
 //    Unaccessible methods, but needed to ensure that all threads will join the socket will close correctly
 //    fo rfuture implementations where there will be an breal/exit clause fo rthe infinite loop
 
-    close(new_sockfd);
     close(sockfd);
-    delete thread_pool;
-
     return 0;
 }
 
