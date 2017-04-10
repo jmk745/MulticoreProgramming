@@ -13,8 +13,11 @@
   <component name="ChangeListManager">
     <list default="true" id="baadc57b-397f-4278-8788-27b73709bcd0" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/../lab1/README.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../lab2/lab2_tools/please.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../lab2/lab2_tools/testgen.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../lab1/main.cpp" afterPath="$PROJECT_DIR$/../lab1/main.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../lab1/testThread.cpp" afterPath="$PROJECT_DIR$/../lab1/testThread.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -357,12 +360,12 @@
       <option name="presentableId" value="Default" />
       <updated>1491771907464</updated>
       <workItem from="1491771909139" duration="1294000" />
-      <workItem from="1491793623129" duration="3209000" />
+      <workItem from="1491793623129" duration="3389000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4503000" />
+    <option name="totallyTimeSpent" value="4683000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
