@@ -131,7 +131,7 @@ int Thread_Safe_Queue<T>::calculate_statistics() {
         if (_count > 0) {
             std::sort (vect.begin(), vect.end());
             int med_index = (_count / 2);
-            if (_count % 2 == 0) { _median = vect[med_index]; }
+            if (_count % 2 != 0) { _median = vect[med_index]; }
             else { _median = (vect[med_index] + vect[med_index - 1]) / 2.0; }
         }
 
@@ -160,6 +160,7 @@ template <class T>
 long double Thread_Safe_Queue<T>::mean() {
     long double num = (double) _sum;
     long double den = (double) _count;
+//    printf("num/den %i/%i\n",_sum, _count);
     return (num/den);
 }
 

@@ -59,7 +59,7 @@ void SIGINT_handler(int signo)
         thread_times->calculate_statistics();
         delete thread_pool;
         printf("\n-----Statistics-----\n+ + Number of Requests + +\nGET: %i\nPOST: %i\nDELETE: %i\nTOTAL: %i\n\n", GET_COUNT, POST_COUNT, DELETE_COUNT, N);
-        printf("\n+ + Thread Times + +\n: %li\nMin: %li\nMax: %Lf\nAvg: %Lf\nMed: %i\n", thread_times->minimum(), thread_times->maximum(), thread_times->mean(), thread_times->median());
+        printf("\n+ + Thread Times + +\nMin: %li\nMax: %ll\nAvg: %Lf\nMed: %Lf\n", thread_times->minimum(), thread_times->maximum(), thread_times->mean(), thread_times->median());
 //        close(sockfd);
     }
 
@@ -95,6 +95,7 @@ void respond_to_request(task_container* container){
     write (container->socket, response_as_string.c_str(), response_as_string.length() );
     auto end_time = std::chrono::system_clock::now();
     thread_times->enqueue( (end_time - container->start_time).count() );
+    printf("%i\n", (end_time - container->start_time).count() );
     printf("Sent Response...\n");
     delete container;
 }
