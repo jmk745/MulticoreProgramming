@@ -8,6 +8,7 @@
 
 #include <pthread.h>
 #include <queue>
+#include <climits>
 
 template <class T>
 class Thread_Safe_Queue{
@@ -18,10 +19,24 @@ public:
     int enqueue(T item);
     T dequeue();
     int isEmpty();
+    int listen(T& element);
+
+    //responsible for the statistics required in lab3
+    int calculate_statistics();
+    long double mean();
+    long double median();
+    long minimum();
+    long maximum();
 
 private:
     pthread_mutex_t mutex;
+    pthread_cond_t condition;
     std::queue<T> items;
+    long _minimum;
+    long _maximum;
+    long _sum;
+    long _count;
+    long double _median;
 };
 
 

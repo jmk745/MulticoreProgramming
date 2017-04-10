@@ -5,7 +5,7 @@
 
 #include <unordered_map>
 #include <unistd.h>
-
+#include <chrono>
 #include "Thread_Safe_Queue.h"
 #include "Thread_Safe_Queue.cpp"
 
@@ -35,24 +35,43 @@ void test_method_1(void* obj_ptr){
 
 
 void* thread_function1(void* v){
+    auto start = std::chrono::system_clock::now();
     printf("Thread %ld\n", pthread_self());
     Thread_Safe_Queue<int>* q = (Thread_Safe_Queue<int>*) v;
 
     for(int i=0; i<100; i++){
         q->enqueue(i);
     }
+    printf("LOADED VALUES\n");
+    auto end = std::chrono::system_clock::now();
+    auto d = std::chrono::duration_cast<std::chrono::microseconds> (end - start).count();
+    printf("TIME: %lld\n", d);
     pthread_exit(0);
 }
 
 void* thread_function2(void* v){
+    auto start = std::chrono::system_clock::now();
     printf("Thread %ld\n", pthread_self());
     Thread_Safe_Queue<int>* q = (Thread_Safe_Queue<int>*) v;
 
-    for(int i=0; i<100; i++){
-        int x = q->dequeue();
-        printf("%d\n", x);
-    }
+//    for(int i=0; i<100; i++){
+//        int x = q->dequeue();
+//        printf("%d\n", x);
+//    }
 
+
+    //testing out the listen method of the class
+    int count=0;
+    int x;
+    while (count<100) {
+        printf("IN LOOP\n");
+        q->listen(x);
+        printf("%d\n", x);
+        count++;
+    }
+    auto end = std::chrono::system_clock::now();
+    auto d = std::chrono::duration_cast<std::chrono::microseconds> (end - start).count();
+    printf("TIME: %lld\n", d);
     pthread_exit(0);
 }
 
@@ -119,13 +138,26 @@ int main(){
     int number_of_threads=2;
 
     pthread_t tid1;
-    pthread_t tid2;
+//    pthread_t tid2;
     pthread_create(&tid1, NULL, thread_function1, (void*) test);
 //    usleep(2000000);
-    pthread_create(&tid2, NULL, thread_function2, (void*) test);
+//    pthread_create(&tid2, NULL, thread_function2, (void*) test);
 
     pthread_join(tid1, NULL);
-    pthread_join(tid2, NULL);
+//    pthread_join(tid2, NULL);
+
+//    for (int i=0; i<10; i++) {
+//        test->enqueue(i);
+//    }
+
+    test->calculate_statistics();
+    unsigned long min = test->minimum();
+    unsigned long max = test->maximum();
+    long double avg = test->mean();
+    long double median = test->median();
+
+    printf("MIN %ld\nMAX %ld\n", min, max);
+    printf("MED %Lf\nMEAN %Lf\n", median, avg);
 
     printf("\n\nTest Completed\n\n");
 

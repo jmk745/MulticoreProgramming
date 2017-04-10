@@ -10,6 +10,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <signal.h>
+#include <chrono>
 
 #include "../httpreq/httpreq.hpp"
 #include "../httpreq/httpresp.hpp"
@@ -22,9 +23,11 @@
 
 int sockfd, new_sockfd;
 Thread_Pool* thread_pool;
+Thread_Safe_Queue<int>* thread_times; // NEED TO EDIT //Big Integer?? && just update Q2???
 int GET_COUNT=0;
 int POST_COUNT=0;
 int DELETE_COUNT=0;
+
 
 /*
  * struct used to store pointers and data for the post, get, and delete functions.
@@ -39,6 +42,7 @@ typedef struct{
     int return_value;
     bool is_found;
     int socket;
+    std::chrono::time_point<std::chrono::system_clock> start_time;
 } task_container;
 
 
@@ -50,9 +54,12 @@ void error(const char *msg) {
 void SIGINT_handler(int signo)
 {
     if (signo == SIGINT){
+
+        int N = GET_COUNT + POST_COUNT + DELETE_COUNT;
+        thread_times->calculate_statistics();
         delete thread_pool;
-        printf("\n-----Statistics-----\nGET: %i\nPOST: %i\nDELETE: %i\n\n\n", GET_COUNT, POST_COUNT, DELETE_COUNT);
-//        close(new_sockfd);
+        printf("\n-----Statistics-----\n+ + Number of Requests + +\nGET: %i\nPOST: %i\nDELETE: %i\nTOTAL: %i\n\n", GET_COUNT, POST_COUNT, DELETE_COUNT, N);
+        printf("\n+ + Thread Times + +\n: %li\nMin: %li\nMax: %Lf\nAvg: %Lf\nMed: %i\n", thread_times->minimum(), thread_times->maximum(), thread_times->mean(), thread_times->median());
 //        close(sockfd);
     }
 
@@ -86,6 +93,8 @@ void respond_to_request(task_container* container){
     response = new HTTPResp(200, final_return_message, true);
     std::string response_as_string = response->getResponse();
     write (container->socket, response_as_string.c_str(), response_as_string.length() );
+    auto end_time = std::chrono::system_clock::now();
+    thread_times->enqueue( (end_time - container->start_time).count() );
     printf("Sent Response...\n");
     delete container;
 }
@@ -98,6 +107,7 @@ void respond_to_request(task_container* container){
 void* task_GET( void* input){
     printf("Performing task_GET\n");
     task_container* container = (task_container*)input;
+    container->start_time = std::chrono::system_clock::now();
     int x = container->kv_store->lookup(container->key, (container->return_value));
     container->is_found = (x==0) ? true:false;
     container->kv_store->accumulate("GET_COUNT", 1);
@@ -116,6 +126,7 @@ void* task_GET( void* input){
 void* task_POST( void* input ){
     printf("Performing task_POST\n");
     task_container* container = (task_container*)input;
+    container->start_time = std::chrono::system_clock::now();
     container->kv_store->insert(container->key, container->value);
     container->md5_store->insert(container->key, md5( container->key ));
     container->kv_store->accumulate("POST_COUNT", 1);
@@ -135,6 +146,7 @@ void* task_POST( void* input ){
 void* task_DELETE( void* input ){
     task_container* container = (task_container*)input;
     int x = container->kv_store->lookup(container->key, (container->return_value));
+    container->start_time = std::chrono::system_clock::now();
     container->is_found = (x==0) ? true:false;
     container->kv_store->remove(container->key);
     container->kv_store->accumulate("DELETE_COUNT", 1);
@@ -203,6 +215,7 @@ int main(int argc, char *argv[])
 //    Initialize the thread pool and launch all threads.
     thread_pool = new Thread_Pool();
     thread_pool->init(number_of_threads);
+    thread_times = new Thread_Safe_Queue<int>(); //NEED TO EDIT BigDecimal???
 
     //Initialize Thread Safe KV stores for the key and string as well as the hash values
     Thread_Safe_KV_Store_2<std::string, int>* key_value_store = new Thread_Safe_KV_Store_2<std::string, int>();

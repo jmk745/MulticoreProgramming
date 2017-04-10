@@ -1,0 +1,21 @@
+
+----Systems----
+crunchy1.cims.nyu.edu	Four AMD Opteron 6272 (2.1 GHz) (64 cores)	256 GB
+crunchy3.cims.nyu.edu	Four AMD Opteron 6136 (2.4 GHz) (32 cores)	128 GB
+crackle1.cims.nyu.edu	Two Intel Xeon E5630 (2.53 GHz) (16 cores)	16 GB
+energon1.cims.nyu.edu	Two Intel Xeon L5320 (1.86 GHz) (8 cores)	8 GB
+mauler.cims.nyu.edu	Two Dual Core AMD Opteron (2.6 GHz) (4 cores)	8 GB
+
+
+
+
+
+
+---Sesssions--- with 100 requests and 50 requests
+1
+4
+8
+16
+32
+64
+128

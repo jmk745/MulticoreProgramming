@@ -18,6 +18,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../lab1/main.cpp" afterPath="$PROJECT_DIR$/../lab1/main.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../lab1/testThread.cpp" afterPath="$PROJECT_DIR$/../lab1/testThread.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp" afterPath="$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.h" afterPath="$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Thread_Safe_Queue/test_for_Thread_Safe_Queue.cpp" afterPath="$PROJECT_DIR$/Thread_Safe_Queue/test_for_Thread_Safe_Queue.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp" afterPath="$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -34,18 +37,8 @@
       <file leaf-file-name="Threaded_Server.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="56" column="5" lean-forward="true" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Thread_Safe_KV_Store_2.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-634">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="257">
+              <caret line="62" column="18" lean-forward="false" selection-start-line="62" selection-start-column="18" selection-end-line="62" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -56,6 +49,10 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>sockfd</find>
+      <find>NEED TO</find>
+      <find>if (</find>
+      <find>unsigned</find>
+      <find>thread_times</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -64,6 +61,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/Thread_Safe_Listener_Queue/ThreadSafeListenerQueue.cpp" />
+        <option value="$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.h" />
+        <option value="$PROJECT_DIR$/Thread_Safe_Queue/test_for_Thread_Safe_Queue.cpp" />
+        <option value="$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp" />
         <option value="$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp" />
       </list>
     </option>
@@ -130,7 +131,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Thread_Safe_KV_Store_2" />
+              <option name="myItemId" value="Thread_Safe_Queue" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -361,12 +362,13 @@
       <option name="presentableId" value="Default" />
       <updated>1491771907464</updated>
       <workItem from="1491771909139" duration="1294000" />
-      <workItem from="1491793623129" duration="4336000" />
+      <workItem from="1491793623129" duration="6010000" />
+      <workItem from="1491846975927" duration="10747000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5630000" />
+    <option name="totallyTimeSpent" value="18051000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -399,7 +401,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -422,14 +426,59 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-634">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Thread_Safe_Listener_Queue/ThreadSafeListenerQueue.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-473">
+          <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Thread_Safe_Listener_Queue/ThreadSafeListenerQueue.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="31" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="28" column="4" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="78" column="26" lean-forward="false" selection-start-line="78" selection-start-column="26" selection-end-line="78" selection-end-column="26" />
+          <folding>
+            <element signature="e#1357#1366#0" expanded="true" />
+            <element signature="e#1536#1545#0" expanded="true" />
+            <element signature="e#2005#2014#0" expanded="true" />
+            <element signature="e#3319#3328#0" expanded="true" />
+            <element signature="e#3402#3411#0" expanded="true" />
+            <element signature="e#3484#3493#0" expanded="true" />
+            <element signature="e#3647#3656#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Thread_Safe_Queue/test_for_Thread_Safe_Queue.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="158" column="28" lean-forward="false" selection-start-line="158" selection-start-column="28" selection-end-line="158" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="56" column="5" lean-forward="true" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
+        <state relative-caret-position="257">
+          <caret line="62" column="18" lean-forward="false" selection-start-line="62" selection-start-column="18" selection-end-line="62" selection-end-column="18" />
           <folding />
         </state>
       </provider>
