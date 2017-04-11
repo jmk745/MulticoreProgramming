@@ -59,7 +59,7 @@ void SIGINT_handler(int signo)
         thread_times->calculate_statistics();
         delete thread_pool;
         printf("\n-----Statistics-----\n+ + Number of Requests + +\nGET: %i\nPOST: %i\nDELETE: %i\nTOTAL: %i\n\n", GET_COUNT, POST_COUNT, DELETE_COUNT, N);
-        printf("\n+ + Thread Times + +\nMin: %li\nMax: %ll\nAvg: %Lf\nMed: %Lf\n", thread_times->minimum(), thread_times->maximum(), thread_times->mean(), thread_times->median());
+        printf("\n+ + Thread Times + +\nMin: %li\nMax: %li\nAvg: %Lf\nMed: %Lf\n", thread_times->minimum(), thread_times->maximum(), thread_times->mean(), thread_times->median());
     }
 
 }
