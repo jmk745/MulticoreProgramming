@@ -18,7 +18,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../lab1/main.cpp" afterPath="$PROJECT_DIR$/../lab1/main.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../lab1/testThread.cpp" afterPath="$PROJECT_DIR$/../lab1/testThread.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp" afterPath="$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -351,12 +350,12 @@
       <workItem from="1491771909139" duration="1294000" />
       <workItem from="1491793623129" duration="6010000" />
       <workItem from="1491846975927" duration="13279000" />
-      <workItem from="1491882986176" duration="1406000" />
+      <workItem from="1491882986176" duration="1536000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21989000" />
+    <option name="totallyTimeSpent" value="22119000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
