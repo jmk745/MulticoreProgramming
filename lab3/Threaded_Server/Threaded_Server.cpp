@@ -21,7 +21,7 @@
 #include "../md5/md5.h"
 #include "../md5/md5.cpp"
 
-int sockfd, new_sockfd;
+
 Thread_Pool* thread_pool;
 Thread_Safe_Queue<int>* thread_times; // NEED TO EDIT //Big Integer?? && just update Q2???
 int GET_COUNT=0;
@@ -41,9 +41,10 @@ typedef struct{
     int value;
     int return_value;
     bool is_found;
-    int socket;
+    int new_sockfd;
     std::chrono::time_point<std::chrono::system_clock> start_time;
 } task_container;
+
 
 
 void error(const char *msg) {
@@ -59,7 +60,6 @@ void SIGINT_handler(int signo)
         delete thread_pool;
         printf("\n-----Statistics-----\n+ + Number of Requests + +\nGET: %i\nPOST: %i\nDELETE: %i\nTOTAL: %i\n\n", GET_COUNT, POST_COUNT, DELETE_COUNT, N);
         printf("\n+ + Thread Times + +\nMin: %li\nMax: %ll\nAvg: %Lf\nMed: %Lf\n", thread_times->minimum(), thread_times->maximum(), thread_times->mean(), thread_times->median());
-        close(sockfd);
     }
 
 }
@@ -91,12 +91,11 @@ void respond_to_request(task_container* container){
 
     response = new HTTPResp(200, final_return_message, true);
     std::string response_as_string = response->getResponse();
-    write (container->socket, response_as_string.c_str(), response_as_string.length() );
+    write (container->new_sockfd, response_as_string.c_str(), response_as_string.length() );
     auto end_time = std::chrono::system_clock::now();
     thread_times->enqueue( (end_time - container->start_time).count() );
     printf("%i\n", (end_time - container->start_time).count() );
     printf("Sent Response...\n");
-    delete container;
 }
 
 
@@ -113,7 +112,6 @@ void* task_GET( void* input){
     container->kv_store->accumulate("GET_COUNT", 1);
     respond_to_request(container);
     printf("Completed task_GET\n");
-    close(new_sockfd);
     return nullptr;
 }
 
@@ -132,7 +130,6 @@ void* task_POST( void* input ){
     container->kv_store->accumulate("POST_COUNT", 1);
     respond_to_request(container);
     printf("Completed task_POST\n");
-    close(new_sockfd);
     return nullptr;
 }
 
@@ -157,6 +154,49 @@ void* task_DELETE( void* input ){
 }
 
 
+/*
+ * thread created for a new session to take care of its requests
+ */
+void* thread (void* input) {
+
+    //retrieve the task container
+    task_container* task_data = (task_container*) input;
+    int new_sockfd = task_data->new_sockfd;
+
+    while (true) {
+
+        //Receive the http request
+        HTTPReq* request = new HTTPReq(new_sockfd);
+        request->parse();
+        std::string request_method = request->getMethod();
+        double request_version = request->getVersion();
+        std::string request_uri = request->getURI();
+        int request_body = atoi(request->getBody().c_str());
+
+
+        //Package all data into the struct task_container
+        task_data->key = request_uri.substr(1);
+        task_data->value = request_body;
+        task_data->new_sockfd = new_sockfd;
+        task_data->method = request_method;
+
+
+        //handle process accordingly to the request
+        if(request_method.compare("GET")==0){
+            GET_COUNT++;
+            thread_pool->add_task(&task_GET, (void*)task_data);
+        }
+        else if(request_method.compare("POST")==0){
+            POST_COUNT++;
+            thread_pool->add_task(&task_POST, (void*)task_data);
+        }
+        else if(request_method.compare("DELETE")==0){
+            DELETE_COUNT++;
+            thread_pool->add_task(&task_DELETE, (void*)task_data);
+        }
+    }
+    pthread_exit(0);
+}
 
 
 
@@ -167,6 +207,7 @@ void* task_DELETE( void* input ){
 
 int main(int argc, char *argv[])
 {
+    int sockfd, new_sockfd;
     int port_number;
     socklen_t client_length;
     struct sockaddr_in server_address, client_address;
@@ -227,54 +268,30 @@ int main(int argc, char *argv[])
     key_value_store->insert("DELETE_COUNT" , 0);
 
 
+    client_length = sizeof(client_address);
+    signal(SIGINT, SIGINT_handler);
 
     //Infinite loop in order for server to receive all requests
     while(true){
 
         //Listen for incoming connections
         listen(sockfd,5);
-        client_length = sizeof(client_address);
-        signal(SIGINT, SIGINT_handler);
 
 //      create new connection
         new_sockfd = accept(sockfd,(struct sockaddr *) &client_address,&client_length);
-
-        //Receive the http request
-        HTTPReq* request = new HTTPReq(new_sockfd);
-        request->parse();
-        std::string request_method = request->getMethod();
-        double request_version = request->getVersion();
-        std::string request_uri = request->getURI();
-        int request_body = atoi(request->getBody().c_str());
-
-
-        //Package all data into the struct task_container
-        task_container* task_data = new task_container();
+        task_container* task_data= new task_container();
+        task_data->new_sockfd = new_sockfd;
         task_data->kv_store = key_value_store;
         task_data->md5_store = md5_hash_store;
-        task_data->key = request_uri.substr(1);
-        task_data->value = request_body;
-        task_data->socket = new_sockfd;
-        task_data->method = request_method;
 
-
-        //handle process accordingly to the request
-        if(request_method.compare("GET")==0){
-            GET_COUNT++;
-            thread_pool->add_task(&task_GET, (void*)task_data);
-        }
-        else if(request_method.compare("POST")==0){
-            POST_COUNT++;
-            thread_pool->add_task(&task_POST, (void*)task_data);
-        }
-        else if(request_method.compare("DELETE")==0){
-            DELETE_COUNT++;
-            thread_pool->add_task(&task_DELETE, (void*)task_data);
-        }
+        //create a new thread to hadle the connection and make use of the spawned thread_pool
+        pthread_t tid;
+        pthread_create(&tid, NULL, thread, (void*) task_data);
+        pthread_detach(tid);
     }
 
 //    Unaccessible methods, but needed to ensure that all threads will join the socket will close correctly
-//    fo rfuture implementations where there will be an breal/exit clause fo rthe infinite loop
+//    for future implementations where there will be an breal/exit clause fo rthe infinite loop
 
     close(sockfd);
     return 0;
