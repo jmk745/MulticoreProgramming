@@ -1,0 +1,47 @@
+-----Statistics-----
++ + Number of Requests + +
+GET: 2553
+POST: 331
+DELETE: 316
+TOTAL: 3200
+
+
++ + Thread Times + +
+Min: 18971
+Max: 632396
+Avg: 135583.092812
+Med: 111281.000000
+
+
+
+
+
+httperf --client=0/1 --server=crunchy1.cims.nyu.edu --port=5000 --uri=/ --send-buffer=4096 --recv-buffer=16384 --ssl-protocol=auto --wsesslog=32,1.000,../../input/n32m100.txt
+Maximum connect burst length: 1
+
+Total: connections 32 requests 3200 replies 3200 test-duration 8.377 s
+
+Connection rate: 3.8 conn/s (261.8 ms/conn, <=2 concurrent connections)
+Connection time [ms]: min 48.6 avg 261.8 max 500.9 median 262.5 stddev 152.4
+Connection time [ms]: connect 0.1
+Connection length [replies/conn]: 100.000
+
+Request rate: 382.0 req/s (2.6 ms/req)
+Request size [B]: 310.0
+
+Reply rate [replies/s]: min 440.2 avg 440.2 max 440.2 stddev 0.0 (1 samples)
+Reply time [ms]: response 2.6 transfer 0.0
+Reply size [B]: header 62.0 content 0.0 footer 0.0 (total 62.0)
+Reply status: 1xx=0 2xx=3200 3xx=0 4xx=0 5xx=0
+
+CPU time [s]: user 0.25 system 8.13 (user 2.9% system 97.1% total 100.0%)
+Net I/O: 138.9 KB/s (1.1*10^6 bps)
+
+Errors: total 0 client-timo 0 socket-timo 0 connrefused 0 connreset 0
+Errors: fd-unavail 0 addrunavail 0 ftab-full 0 other 0
+
+Session rate [sess/s]: min 4.40 avg 3.82 max 4.40 stddev 0.00 (32/32)
+Session: avg 1.00 connections/session
+Session lifetime [s]: 0.3
+Session failtime [s]: 0.0
+Session length histogram: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 32
