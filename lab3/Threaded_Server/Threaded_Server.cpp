@@ -283,7 +283,7 @@ int main(int argc, char *argv[])
     while(running_flag){
 
         //Listen for incoming connections
-        listen(sockfd,5);
+        listen(sockfd,128);
 
 //      create new connection
         new_sockfd = accept(sockfd,(struct sockaddr *) &client_address,&client_length);
