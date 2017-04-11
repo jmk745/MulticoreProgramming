@@ -294,9 +294,10 @@ int main(int argc, char *argv[])
         task_data->md5_store = md5_hash_store;
 
         //create a new thread to hadle the connection and make use of the spawned thread_pool
-        pthread_t tid;
-        pthread_create(&tid, NULL, thread, (void*) task_data);
-        pthread_detach(tid);
+        thread_pool->add_task(thread, (void*) task_data);
+//        pthread_t tid;
+//        pthread_create(&tid, NULL, thread, (void*) task_data);
+//        pthread_detach(tid);
     }
 
     //close all opened connections --> closing socket will stop the thread from listening
