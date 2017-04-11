@@ -58,10 +58,23 @@ void SIGINT_handler(int signo)
     if (signo == SIGINT) {
         int N = GET_COUNT + POST_COUNT + DELETE_COUNT;
         thread_times->calculate_statistics();
-        delete thread_pool;
+//        delete thread_pool;
         printf("\n-----Statistics-----\n+ + Number of Requests + +\nGET: %i\nPOST: %i\nDELETE: %i\nTOTAL: %i\n\n", GET_COUNT, POST_COUNT, DELETE_COUNT, N);
         printf("\n+ + Thread Times + +\nMin: %li\nMax: %li\nAvg: %Lf\nMed: %Lf\n", thread_times->minimum(), thread_times->maximum(), thread_times->mean(), thread_times->median());
-        running_flag = false; //terminate all while(1) loops
+//        running_flag = false; //terminate all while(1) loops
+        GET_COUNT = 0;
+        POST_COUNT = 0;
+        DELETE_COUNT = 0;
+        while (!thread_times->isEmpty()) {
+            thread_times->dequeue();
+        }
+
+        printf("Data cleared...\nDo you wish to exit?\ny for yes\nelse, any other key to continue...\n\n");
+        char c = getchar();
+        if (c == 'y' || c == 'Y') {
+            printf("Exiting...\n");
+            running_flag = false;
+        }
     }
 
 }
@@ -111,7 +124,6 @@ void* task_GET( void* input){
     container->start_time = std::chrono::system_clock::now();
     int x = container->kv_store->lookup(container->key, (container->return_value));
     container->is_found = (x==0) ? true:false;
-    container->kv_store->accumulate("GET_COUNT", 1);
     respond_to_request(container);
     printf("Completed task_GET\n");
     return nullptr;
@@ -129,7 +141,6 @@ void* task_POST( void* input ){
     container->start_time = std::chrono::system_clock::now();
     container->kv_store->insert(container->key, container->value);
     container->md5_store->insert(container->key, md5( container->key ));
-    container->kv_store->accumulate("POST_COUNT", 1);
     respond_to_request(container);
     printf("Completed task_POST\n");
     return nullptr;
@@ -148,7 +159,6 @@ void* task_DELETE( void* input ){
     container->start_time = std::chrono::system_clock::now();
     container->is_found = (x==0) ? true:false;
     container->kv_store->remove(container->key);
-    container->kv_store->accumulate("DELETE_COUNT", 1);
     respond_to_request(container);
     printf("Completed task_DELETE\n");
     return nullptr;
@@ -211,6 +221,7 @@ int main(int argc, char *argv[])
 {
     int sockfd, new_sockfd;
     int port_number;
+    std::vector<int> vector_of_sockets; // to store all connections
     socklen_t client_length;
     struct sockaddr_in server_address, client_address;
 
@@ -264,11 +275,6 @@ int main(int argc, char *argv[])
     Thread_Safe_KV_Store_2<std::string, int>* key_value_store = new Thread_Safe_KV_Store_2<std::string, int>();
     Thread_Safe_KV_Store_2<std::string, std::string>* md5_hash_store = new Thread_Safe_KV_Store_2<std::string, std::string>();
 
-    //Add the counter vars for statistics of submitted requests
-    key_value_store->insert("GET_COUNT" , 0);
-    key_value_store->insert("POST_COUNT" , 0);
-    key_value_store->insert("DELETE_COUNT" , 0);
-
 
     client_length = sizeof(client_address);
     signal(SIGINT, SIGINT_handler);
@@ -282,6 +288,7 @@ int main(int argc, char *argv[])
 //      create new connection
         new_sockfd = accept(sockfd,(struct sockaddr *) &client_address,&client_length);
         task_container* task_data= new task_container();
+        vector_of_sockets.push_back(new_sockfd); //record connection nd pass it on to a thread
         task_data->new_sockfd = new_sockfd;
         task_data->kv_store = key_value_store;
         task_data->md5_store = md5_hash_store;
@@ -292,9 +299,12 @@ int main(int argc, char *argv[])
         pthread_detach(tid);
     }
 
-//    Unaccessible methods, but needed to ensure that all threads will join the socket will close correctly
-//    for future implementations where there will be an breal/exit clause fo rthe infinite loop
+    //close all opened connections --> closing socket will stop the thread from listening
+    for (int i=0; i<vector_of_sockets.size(); i++) {
+        close(vector_of_sockets[i]);
+    }
 
+    //close main server socket
     close(sockfd);
     return 0;
 }
