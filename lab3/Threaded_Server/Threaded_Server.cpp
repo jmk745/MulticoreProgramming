@@ -24,6 +24,7 @@
 
 Thread_Pool* thread_pool;
 Thread_Safe_Queue<int>* thread_times; // NEED TO EDIT //Big Integer?? && just update Q2???
+bool running_flag = true;
 int GET_COUNT=0;
 int POST_COUNT=0;
 int DELETE_COUNT=0;
@@ -60,6 +61,7 @@ void SIGINT_handler(int signo)
         delete thread_pool;
         printf("\n-----Statistics-----\n+ + Number of Requests + +\nGET: %i\nPOST: %i\nDELETE: %i\nTOTAL: %i\n\n", GET_COUNT, POST_COUNT, DELETE_COUNT, N);
         printf("\n+ + Thread Times + +\nMin: %li\nMax: %li\nAvg: %Lf\nMed: %Lf\n", thread_times->minimum(), thread_times->maximum(), thread_times->mean(), thread_times->median());
+        running_flag = false; //terminate all while(1) loops
     }
 
 }
@@ -149,7 +151,6 @@ void* task_DELETE( void* input ){
     container->kv_store->accumulate("DELETE_COUNT", 1);
     respond_to_request(container);
     printf("Completed task_DELETE\n");
-//    close(new_sockfd);
     return nullptr;
 }
 
@@ -163,7 +164,7 @@ void* thread (void* input) {
     task_container* task_data = (task_container*) input;
     int new_sockfd = task_data->new_sockfd;
 
-    while (true) {
+    while (running_flag) {
 
         //Receive the http request
         HTTPReq* request = new HTTPReq(new_sockfd);
@@ -195,6 +196,7 @@ void* thread (void* input) {
             thread_pool->add_task(&task_DELETE, (void*)task_data);
         }
     }
+    close(new_sockfd);
     pthread_exit(0);
 }
 
@@ -272,7 +274,7 @@ int main(int argc, char *argv[])
     signal(SIGINT, SIGINT_handler);
 
     //Infinite loop in order for server to receive all requests
-    while(true){
+    while(running_flag){
 
         //Listen for incoming connections
         listen(sockfd,5);
