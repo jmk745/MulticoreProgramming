@@ -53,8 +53,7 @@ void error(const char *msg) {
 
 void SIGINT_handler(int signo)
 {
-    if (signo == SIGINT){
-
+    if (signo == SIGINT) {
         int N = GET_COUNT + POST_COUNT + DELETE_COUNT;
         thread_times->calculate_statistics();
         delete thread_pool;
@@ -153,7 +152,7 @@ void* task_DELETE( void* input ){
     container->kv_store->accumulate("DELETE_COUNT", 1);
     respond_to_request(container);
     printf("Completed task_DELETE\n");
-    close(new_sockfd);
+//    close(new_sockfd);
     return nullptr;
 }
 
@@ -228,13 +227,14 @@ int main(int argc, char *argv[])
     key_value_store->insert("DELETE_COUNT" , 0);
 
 
-    //Listen for incoming connections
-    listen(sockfd,5);
-    client_length = sizeof(client_address);
-    signal(SIGINT, SIGINT_handler);
 
     //Infinite loop in order for server to receive all requests
     while(true){
+
+        //Listen for incoming connections
+        listen(sockfd,5);
+        client_length = sizeof(client_address);
+        signal(SIGINT, SIGINT_handler);
 
 //      create new connection
         new_sockfd = accept(sockfd,(struct sockaddr *) &client_address,&client_length);
