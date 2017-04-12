@@ -185,6 +185,7 @@ void* thread (void* input) {
         //check if EIO
         if (request->parse() < 0) {
             close(new_sockfd);
+            pthread_exit(0);
         }
 
         //returns a value and handle if negative one

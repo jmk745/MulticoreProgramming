@@ -12,37 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="baadc57b-397f-4278-8788-27b73709bcd0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/n8m100x160.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n128m100x160.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n16m100x10.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n16m100x160.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n16m100x40.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n16m100x80.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n1m100x10.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n1m100x20.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n1m100x40.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n1m100x80.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n32m100x160.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n32m100x40.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n32m100x80.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n4m100x10.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n4m100x160.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n4m100x20.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n4m100x40.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n4m100x80.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n64m100x160.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n64m100x80.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n8m100x10.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n8m100x160.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n8m100x20.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n8m100x40.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n8m100x80.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp" afterPath="$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/httpreq/httpreq.cc" afterPath="$PROJECT_DIR$/httpreq/httpreq.cc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/httpreq/httpresp.cc" afterPath="$PROJECT_DIR$/httpreq/httpresp.cc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lab2_tools/output/brawler/n1m100x6.txt" afterPath="$PROJECT_DIR$/lab2_tools/output/brawler/n1m100x6.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lab2_tools/output/crackle1/n8m100x10.txt" afterPath="$PROJECT_DIR$/lab2_tools/output/crackle1/n8m100x10.txt" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -58,8 +28,8 @@
       <file leaf-file-name="Threaded_Server.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1959">
-              <caret line="297" column="0" lean-forward="true" selection-start-line="297" selection-start-column="0" selection-end-line="297" selection-end-column="0" />
+            <state relative-caret-position="120">
+              <caret line="187" column="28" lean-forward="false" selection-start-line="187" selection-start-column="28" selection-end-line="187" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -427,12 +397,12 @@
       <workItem from="1491882986176" duration="3857000" />
       <workItem from="1491891283957" duration="702000" />
       <workItem from="1491968440383" duration="83000" />
-      <workItem from="1492035733945" duration="3227000" />
+      <workItem from="1492035733945" duration="3377000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28452000" />
+    <option name="totallyTimeSpent" value="28602000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -635,8 +605,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1959">
-          <caret line="297" column="0" lean-forward="true" selection-start-line="297" selection-start-column="0" selection-end-line="297" selection-end-column="0" />
+        <state relative-caret-position="120">
+          <caret line="187" column="28" lean-forward="false" selection-start-line="187" selection-start-column="28" selection-end-line="187" selection-end-column="28" />
           <folding />
         </state>
       </provider>
