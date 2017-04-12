@@ -1,0 +1,29 @@
+httperf --client=0/1 --server=crackle1 --port=4000 --uri=/ --send-buffer=4096 --recv-buffer=16384 --ssl-protocol=auto --wsesslog=8,1.000,../../input/n8m100.txt
+Maximum connect burst length: 1
+
+Total: connections 8 requests 1 replies 0 test-duration 0.002 s
+
+Connection rate: 4180.2 conn/s (0.2 ms/conn, <=2 concurrent connections)
+Connection time [ms]: min 0.0 avg 0.0 max 0.0 median 0.0 stddev 0.0
+Connection time [ms]: connect 0.3
+Connection length [replies/conn]: 0.000
+
+Request rate: 522.5 req/s (1.9 ms/req)
+Request size [B]: 72.0
+
+Reply rate [replies/s]: min 0.0 avg 0.0 max 0.0 stddev 0.0 (0 samples)
+Reply time [ms]: response 0.0 transfer 0.0
+Reply size [B]: header 0.0 content 0.0 footer 0.0 (total 0.0)
+Reply status: 1xx=0 2xx=0 3xx=0 4xx=0 5xx=0
+
+CPU time [s]: user 0.00 system 0.00 (user 0.0% system 104.5% total 104.5%)
+Net I/O: 36.7 KB/s (0.3*10^6 bps)
+
+Errors: total 8 client-timo 0 socket-timo 0 connrefused 7 connreset 1
+Errors: fd-unavail 0 addrunavail 0 ftab-full 0 other 0
+
+Session rate [sess/s]: min 0.00 avg 0.00 max 0.00 stddev 0.00 (0/8)
+Session: avg 0.00 connections/session
+Session lifetime [s]: 0.0
+Session failtime [s]: 0.0
+Session length histogram: 8

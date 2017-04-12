@@ -1,0 +1,45 @@
+-----Statistics-----
++ + Number of Requests + +
+GET: 646
+POST: 82
+DELETE: 72
+TOTAL: 800
+
+
++ + Thread Times + +
+Min: 16585
+Max: 167372
+Avg: 32965.102500
+Med: 31984.500000
+
+
+
+httperf --client=0/1 --server=crackle1 --port=4000 --uri=/ --send-buffer=4096 --recv-buffer=16384 --ssl-protocol=auto --wsesslog=8,1.000,../../input/n8m100.txt
+Maximum connect burst length: 1
+
+Total: connections 8 requests 800 replies 800 test-duration 0.416 s
+
+Connection rate: 19.3 conn/s (51.9 ms/conn, <=2 concurrent connections)
+Connection time [ms]: min 41.7 avg 52.0 max 64.6 median 50.5 stddev 7.8
+Connection time [ms]: connect 0.2
+Connection length [replies/conn]: 100.000
+
+Request rate: 1925.1 req/s (0.5 ms/req)
+Request size [B]: 307.0
+
+Reply rate [replies/s]: min 0.0 avg 0.0 max 0.0 stddev 0.0 (0 samples)
+Reply time [ms]: response 0.5 transfer 0.0
+Reply size [B]: header 62.0 content 0.0 footer 0.0 (total 62.0)
+Reply status: 1xx=0 2xx=800 3xx=0 4xx=0 5xx=0
+
+CPU time [s]: user 0.02 system 0.40 (user 4.6% system 95.5% total 100.1%)
+Net I/O: 694.4 KB/s (5.7*10^6 bps)
+
+Errors: total 0 client-timo 0 socket-timo 0 connrefused 0 connreset 0
+Errors: fd-unavail 0 addrunavail 0 ftab-full 0 other 0
+
+Session rate [sess/s]: min 0.00 avg 19.25 max 0.00 stddev 0.00 (8/8)
+Session: avg 1.00 connections/session
+Session lifetime [s]: 0.1
+Session failtime [s]: 0.0
+Session length histogram: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 8
