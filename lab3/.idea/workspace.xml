@@ -12,7 +12,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="baadc57b-397f-4278-8788-27b73709bcd0" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/n8m100x160.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n128m100x160.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n16m100x10.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n16m100x160.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n16m100x40.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n16m100x80.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n1m100x10.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n1m100x20.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n1m100x40.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n1m100x80.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n32m100x160.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n32m100x40.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n32m100x80.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n4m100x10.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n4m100x160.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n4m100x20.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n4m100x40.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n4m100x80.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n64m100x160.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n64m100x80.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n8m100x10.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n8m100x160.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n8m100x20.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n8m100x40.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lab2_tools/output/crunchy1/results_n8m100x80.txt" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp" afterPath="$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/httpreq/httpreq.cc" afterPath="$PROJECT_DIR$/httpreq/httpreq.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/httpreq/httpresp.cc" afterPath="$PROJECT_DIR$/httpreq/httpresp.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lab2_tools/output/brawler/n1m100x6.txt" afterPath="$PROJECT_DIR$/lab2_tools/output/brawler/n1m100x6.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lab2_tools/output/crackle1/n8m100x10.txt" afterPath="$PROJECT_DIR$/lab2_tools/output/crackle1/n8m100x10.txt" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,8 +58,8 @@
       <file leaf-file-name="Threaded_Server.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="803">
-              <caret line="284" column="16" lean-forward="false" selection-start-line="284" selection-start-column="10" selection-end-line="284" selection-end-column="16" />
+            <state relative-caret-position="1959">
+              <caret line="297" column="0" lean-forward="true" selection-start-line="297" selection-start-column="0" selection-end-line="297" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -48,7 +78,7 @@
       <file leaf-file-name="Thread_Safe_Queue.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2550">
+            <state relative-caret-position="1728">
               <caret line="170" column="0" lean-forward="false" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
               <folding />
             </state>
@@ -71,6 +101,15 @@
       <find>VECTOR</find>
       <find>getC</find>
       <find>listen</find>
+      <find>new_sockfd</find>
+      <find>sockets</find>
+      <find>sockets.</find>
+      <find>header</find>
+      <find>errno</find>
+      <find>parse</find>
+      <find>//</find>
+      <find>INT</find>
+      <find>vector_</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -83,6 +122,8 @@
         <option value="$PROJECT_DIR$/Thread_Safe_Queue/test_for_Thread_Safe_Queue.cpp" />
         <option value="$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp" />
         <option value="$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.h" />
+        <option value="$PROJECT_DIR$/httpreq/httpresp.cc" />
+        <option value="$PROJECT_DIR$/httpreq/httpreq.cc" />
         <option value="$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp" />
       </list>
     </option>
@@ -384,12 +425,14 @@
       <workItem from="1491793623129" duration="6010000" />
       <workItem from="1491846975927" duration="13279000" />
       <workItem from="1491882986176" duration="3857000" />
-      <workItem from="1491891283957" duration="593000" />
+      <workItem from="1491891283957" duration="702000" />
+      <workItem from="1491968440383" duration="83000" />
+      <workItem from="1492035733945" duration="3227000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25033000" />
+    <option name="totallyTimeSpent" value="28452000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -459,6 +502,54 @@
     <entry file="file://$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2550">
+          <caret line="170" column="0" lean-forward="false" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2550">
+          <caret line="170" column="0" lean-forward="false" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
           <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding />
         </state>
@@ -504,7 +595,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Thread_Safe_Queue/Thread_Safe_Queue.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2550">
+        <state relative-caret-position="1728">
           <caret line="170" column="0" lean-forward="false" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
           <folding />
         </state>
@@ -518,10 +609,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/httpreq/httpresp.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="763">
+          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/httpreq/httpreq.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="31">
+          <caret line="21" column="15" lean-forward="false" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/httpreq/httpreq.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-162">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="803">
-          <caret line="284" column="16" lean-forward="false" selection-start-line="284" selection-start-column="10" selection-end-line="284" selection-end-column="16" />
+        <state relative-caret-position="1959">
+          <caret line="297" column="0" lean-forward="true" selection-start-line="297" selection-start-column="0" selection-end-line="297" selection-end-column="0" />
           <folding />
         </state>
       </provider>

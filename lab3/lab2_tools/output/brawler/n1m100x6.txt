@@ -1,4 +1,4 @@
-+ + Thread Times + +
+.2+ + Thread Times + +
 Min: 19836
 Max: 146948
 Avg: 27165.810000

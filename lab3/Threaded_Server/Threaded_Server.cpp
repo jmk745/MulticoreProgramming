@@ -23,7 +23,8 @@
 
 
 Thread_Pool* thread_pool;
-Thread_Safe_Queue<int>* thread_times; // NEED TO EDIT //Big Integer?? && just update Q2???
+Thread_Safe_Queue<int>* thread_times;
+Thread_Safe_Queue<int>* sockets;
 bool running_flag = true;
 int GET_COUNT=0;
 int POST_COUNT=0;
@@ -58,10 +59,10 @@ void SIGINT_handler(int signo)
     if (signo == SIGINT) {
         int N = GET_COUNT + POST_COUNT + DELETE_COUNT;
         thread_times->calculate_statistics();
-//        delete thread_pool;
         printf("\n-----Statistics-----\n+ + Number of Requests + +\nGET: %i\nPOST: %i\nDELETE: %i\nTOTAL: %i\n\n", GET_COUNT, POST_COUNT, DELETE_COUNT, N);
         printf("\n+ + Thread Times + +\nMin: %li\nMax: %li\nAvg: %Lf\nMed: %Lf\n", thread_times->minimum(), thread_times->maximum(), thread_times->mean(), thread_times->median());
-//        running_flag = false; //terminate all while(1) loops
+
+        //Clean out and Restart ad counts
         GET_COUNT = 0;
         POST_COUNT = 0;
         DELETE_COUNT = 0;
@@ -69,14 +70,14 @@ void SIGINT_handler(int signo)
             thread_times->dequeue();
         }
 
-        printf("Data cleared...\nDo you wish to exit?\ny for yes\nelse, any other key to continue...\n\n");
+        printf("Data cleared...\n\nDo you wish to exit?\ny for yes or press any other key to continue...\n\n");
         char c = getchar();
         if (c == 'y' || c == 'Y') {
             printf("Exiting...\n");
             running_flag = false;
+            delete thread_pool;
         }
     }
-
 }
 
 
@@ -172,13 +173,21 @@ void* thread (void* input) {
 
     //retrieve the task container
     task_container* task_data = (task_container*) input;
-    int new_sockfd = task_data->new_sockfd;
+    int new_sockfd;
 
     while (running_flag) {
 
+        sockets->listen(new_sockfd);
+
         //Receive the http request
         HTTPReq* request = new HTTPReq(new_sockfd);
-        request->parse();
+
+        //check if EIO
+        if (request->parse() < 0) {
+            close(new_sockfd);
+        }
+
+        //returns a value and handle if negative one
         std::string request_method = request->getMethod();
         double request_version = request->getVersion();
         std::string request_uri = request->getURI();
@@ -186,6 +195,7 @@ void* thread (void* input) {
 
 
         //Package all data into the struct task_container
+        task_data->new_sockfd = new_sockfd;
         task_data->key = request_uri.substr(1);
         task_data->value = request_body;
         task_data->new_sockfd = new_sockfd;
@@ -205,6 +215,7 @@ void* thread (void* input) {
             DELETE_COUNT++;
             thread_pool->add_task(&task_DELETE, (void*)task_data);
         }
+        sockets->enqueue(new_sockfd);
     }
     close(new_sockfd);
     pthread_exit(0);
@@ -221,7 +232,6 @@ int main(int argc, char *argv[])
 {
     int sockfd, new_sockfd;
     int port_number;
-    std::vector<int> vector_of_sockets; // to store all connections
     socklen_t client_length;
     struct sockaddr_in server_address, client_address;
 
@@ -269,7 +279,8 @@ int main(int argc, char *argv[])
 //    Initialize the thread pool and launch all threads.
     thread_pool = new Thread_Pool();
     thread_pool->init(number_of_threads);
-    thread_times = new Thread_Safe_Queue<int>(); //NEED TO EDIT BigDecimal???
+    thread_times = new Thread_Safe_Queue<int>();
+    sockets = new Thread_Safe_Queue<int>();
 
     //Initialize Thread Safe KV stores for the key and string as well as the hash values
     Thread_Safe_KV_Store_2<std::string, int>* key_value_store = new Thread_Safe_KV_Store_2<std::string, int>();
@@ -287,23 +298,15 @@ int main(int argc, char *argv[])
 
 //      create new connection
         new_sockfd = accept(sockfd,(struct sockaddr *) &client_address,&client_length);
+        sockets->enqueue(new_sockfd);
         task_container* task_data= new task_container();
-        vector_of_sockets.push_back(new_sockfd); //record connection nd pass it on to a thread
-        task_data->new_sockfd = new_sockfd;
         task_data->kv_store = key_value_store;
         task_data->md5_store = md5_hash_store;
 
         //create a new thread to hadle the connection and make use of the spawned thread_pool
         thread_pool->add_task(thread, (void*) task_data);
-//        pthread_t tid;
-//        pthread_create(&tid, NULL, thread, (void*) task_data);
-//        pthread_detach(tid);
     }
 
-    //close all opened connections --> closing socket will stop the thread from listening
-    for (int i=0; i<vector_of_sockets.size(); i++) {
-        close(vector_of_sockets[i]);
-    }
 
     //close main server socket
     close(sockfd);

@@ -137,9 +137,11 @@ std::string HTTPReq::readBytes(const size_t length) {
 		} else if (rval != 0) {
 			errno = EFAULT;
 			return "";
+		} else if (rval == 0) {
+			errno = EIO;
+			return "";
 		}
 	}
-
 	return data;
 }
 

@@ -57,3 +57,4 @@ const std::string HTTPResp::getResponse(void) {
 const bool HTTPResp::isMalformed(void) {
 	return malformed_;
 }
+

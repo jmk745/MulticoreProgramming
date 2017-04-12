@@ -22,7 +22,7 @@ Maximum connect burst length: 0
 Total: connections 1 requests 100 replies 100 test-duration 0.053 s
 
 Connection rate: 19.0 conn/s (52.7 ms/conn, <=1 concurrent connections)
-Connection time [ms]: min 53.4 avg 53.4 max 53.4 median 53.5 stddev 0.0
+Connection time [ms]: m10.0
 Connection time [ms]: connect 0.9
 Connection length [replies/conn]: 100.000
 
