@@ -13,4 +13,3 @@ CMake Error: CMake can not determine linker language for target: lab2
 CMake Error: Cannot determine link language for target "lab2".
 -- Generating done
 -- Build files have been written to: /Users/james/GitSpace/MulticoreProgramming/lab3/cmake-build-debug
-Unable to determine product file path for target lab2 (Debug). Running and debugging will be unavailable.
