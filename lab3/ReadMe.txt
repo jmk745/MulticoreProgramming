@@ -6,13 +6,13 @@ Multicore Programming - Lab 2 - Thread_Pool
 ---------------------------------------------
 Production Information
 	-Written on CLion IDE on Mac OS
-	-Unable to compiler on CIMS due to old compiler
+	-Compiles on NYU CIMS - GCC-6.2.0
 	-Written in C++
 
 ---------------------------------------------
 How to Compile and Run
 
-	-In terminal navigate to directory lab2
+	-In terminal navigate to directory lab3
         and run the following terminal command: "make"
         This will run the makefile and compile all of the present files into an executable named "server.out"
 
@@ -20,12 +20,19 @@ How to Compile and Run
 	-Run the compiled executable with the following command:
                         "./server.out -p <port_number> -n <number_of_threads>"
 
-    -Check server response with curl
+	
+	-To compile a threaded_server with global locks runt he following makefile command:
+		“make server.out”
+
+	-Run the compiled executable with the following command:
+                        "./serverg.out -p <port_number> -n <number_of_threads>"
+	
+
 
 ---------------------------------------------
 Description
 
-    This lab2 submission contains 7 directories that compile into a multithreaded server.
+    This lab3 submission contains 7 directories that compile into a multithreaded server.
 
     The Thread_Pool directory holds files responsible for the Thread_Pool class. An instance of this class
     handles all spawned threads (conditon variables) and delegates the tasks assigned to its queue (using the add_task method)
@@ -52,6 +59,12 @@ Description
         - Thread_Safe_KV_Store_2.cpp:        an upgraded version from the previous submitted ThreadSafeKVStore
         - Thread_Safe_KV_Store_2.h:          (DELTA) -> changed mutex locks for read-write locks
 
+    - Thread_Safe_KV_Store
+        - makefile:                          used to compile the files of this folder
+        - ThreadSafeKVStore.cpp:        	ThreadSafeKVStore from lab1
+        - ThreadSafeKVStore_2.h		contains mutex locks for read-write locks
+
+
     - Thread_Safe_Queue
         - makefile:                     used to compile the files of this folder
         - test_for_Thread_Safe_Queue:   main function that inits and test runs the DS
@@ -59,10 +72,11 @@ Description
         - Thread_Safe_Queue.h:          
 
     - Threaded_Server
-        - makefile:                 used to compile the files of this folder
-        - Threaded_Server.cpp:      implementation of a running server
-                                        during running this binary, it inits a thread pool and the Thread_Safe_KV_Store_2 classes
-                                        runs in an infinite loop in order to accept all incoming requests
+        - makefile:                 		used to compile the files of this folder
+	- Threaded_Server_Global_Lock.cpp: 	modified server to contain mutex locks for performance comparions
+        - Threaded_Server.cpp:      		implementation of a running server
+                                        		during running this binary, it inits a thread pool and the Thread_Safe_KV_Store_2 classes
+                                        		runs in an infinite loop in order to accept all incoming requests
 
     - md5
         - provided by (http://www.bzflag.org)

@@ -11,9 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="baadc57b-397f-4278-8788-27b73709bcd0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile" afterPath="$PROJECT_DIR$/makefile" />
-    </list>
+    <list default="true" id="baadc57b-397f-4278-8788-27b73709bcd0" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,21 +23,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Threaded_Server.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Threaded_Server.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="94">
               <caret line="183" column="23" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="297" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Threaed_Server_Global_Lock.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaed_Server_Global_Lock.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-133">
-              <caret line="39" column="57" lean-forward="true" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -670,18 +658,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="183" column="23" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="297" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaed_Server_Global_Lock.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-133">
           <caret line="39" column="57" lean-forward="true" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="183" column="23" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="297" selection-end-column="0" />
           <folding />
         </state>
       </provider>
