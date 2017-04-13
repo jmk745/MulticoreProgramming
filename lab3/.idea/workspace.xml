@@ -12,9 +12,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="baadc57b-397f-4278-8788-27b73709bcd0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Threaded_Server/Threaed_Server_Global_Lock.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile" afterPath="$PROJECT_DIR$/makefile" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -41,7 +38,7 @@
       <file leaf-file-name="Threaed_Server_Global_Lock.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaed_Server_Global_Lock.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
+            <state relative-caret-position="-133">
               <caret line="39" column="57" lean-forward="true" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
               <folding />
             </state>
@@ -437,12 +434,12 @@
       <workItem from="1491968440383" duration="83000" />
       <workItem from="1492035733945" duration="9981000" />
       <workItem from="1492056160423" duration="8000" />
-      <workItem from="1492056200854" duration="2306000" />
+      <workItem from="1492056200854" duration="2499000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37520000" />
+    <option name="totallyTimeSpent" value="37713000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -683,7 +680,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaed_Server_Global_Lock.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
+        <state relative-caret-position="-133">
           <caret line="39" column="57" lean-forward="true" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
           <folding />
         </state>

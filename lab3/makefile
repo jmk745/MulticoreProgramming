@@ -4,8 +4,8 @@ cFlag=-c -std=c++0x -pthread
 server.out: Threaded_Server.o Thread_Safe_KV_Store_2.o Thread_Pool.o httpreq.o httpresp.o
 	${CC} Threaded_Server.o Thread_Safe_KV_Store_2.o Thread_Pool.o httpreq.o httpresp.o -o server.out -pthread
 
-serverg.out: Threaded_Server.o Thread_Safe_KV_Store.o Thread_Pool.o httpreq.o httpresp.o
-		${CC} Threaded_Server.o Thread_Safe_KV_Store.o Thread_Pool.o httpreq.o httpresp.o -o serverg.out -pthread
+serverg.out: Threaded_Server_G.o Thread_Safe_KV_Store.o Thread_Pool.o httpreq.o httpresp.o
+		${CC} Threaded_Server_G.o Thread_Safe_KV_Store.o Thread_Pool.o httpreq.o httpresp.o -o serverg.out -pthread
 
 Thread_Pool.o: Thread_Pool/Thread_Pool.cpp Thread_Pool/Thread_Pool.h
 	${CC} ${cFlag} Thread_Pool/Thread_Pool.cpp -o Thread_Pool.o
@@ -21,6 +21,9 @@ Thread_Safe_Queue.o: Thread_Safe_Queue/Thread_Safe_Queue.cpp Thread_Safe_Queue/T
 
 Threaded_Server.o: Threaded_Server/Threaded_Server.cpp
 	${CC} ${cFlag} Threaded_Server/Threaded_Server.cpp
+
+Threaded_Server_G.o: Threaded_Server/Threaded_Server_Global_Lock.cpp
+		${CC} ${cFlag} Threaded_Server/Threaded_Server_Global_Lock.cpp -o Threaded_Server_G.o
 
 httpreq.o: httpreq/httpreq.cc httpreq/httpreq.hpp
 	${CC} ${cFlag} httpreq/httpreq.cc -o httpreq.o

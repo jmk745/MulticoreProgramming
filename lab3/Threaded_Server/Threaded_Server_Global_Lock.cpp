@@ -42,7 +42,7 @@ int sockfd;
 typedef struct{
     ThreadSafeKVStore<std::string, int>* kv_store;
     ThreadSafeKVStore<std::string, std::string>* md5_store;
-    ThreadSafeQueue<int>* sockets;
+    Thread_Safe_Queue<int>* sockets;
     std::string method;
     std::string key;
     int value;
@@ -118,7 +118,7 @@ void respond_to_request(task_container* container){
     write (container->new_sockfd, response_as_string.c_str(), response_as_string.length() );
     auto end_time = std::chrono::system_clock::now();
     thread_times->enqueue( (end_time - container->start_time).count() );
-    printf("%i\n", (end_time - container->start_time).count() );
+    printf("%ll\n", (end_time - container->start_time).count() );
     printf("Sent Response...\n");
 }
 
@@ -291,7 +291,3 @@ int main(int argc, char *argv[])
     close(sockfd);
     return 0;
 }
-
-
-
-
