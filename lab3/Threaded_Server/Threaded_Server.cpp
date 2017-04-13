@@ -26,10 +26,14 @@ Thread_Pool* thread_pool;
 Thread_Safe_Queue<int>* thread_times;
 Thread_Safe_Queue<int>* sockets;
 bool running_flag = true;
+
+//global variables that are unsecured without mutex since they are not
 int GET_COUNT=0;
 int POST_COUNT=0;
 int DELETE_COUNT=0;
 
+
+int sockfd;
 
 /*
  * struct used to store pointers and data for the post, get, and delete functions.
@@ -38,6 +42,7 @@ int DELETE_COUNT=0;
 typedef struct{
     Thread_Safe_KV_Store_2<std::string, int>* kv_store;
     Thread_Safe_KV_Store_2<std::string, std::string>* md5_store;
+    Thread_Safe_Queue<int>* sockets;
     std::string method;
     std::string key;
     int value;
@@ -53,6 +58,7 @@ void error(const char *msg) {
     perror(msg);
     exit(1);
 }
+
 
 void SIGINT_handler(int signo)
 {
@@ -70,12 +76,14 @@ void SIGINT_handler(int signo)
             thread_times->dequeue();
         }
 
-        printf("Data cleared...\n\nDo you wish to exit?\ny for yes or press any other key to continue...\n\n");
-        char c = getchar();
+        printf("Data Cleared\n\n");
+
+        printf("Press 'y' to close socket or any other key to continue running..\n");
+        char c;
+        std::cin >> c;
         if (c == 'y' || c == 'Y') {
-            printf("Exiting...\n");
+            close(sockfd);
             running_flag = false;
-            delete thread_pool;
         }
     }
 }
@@ -115,56 +123,6 @@ void respond_to_request(task_container* container){
 }
 
 
-/*
- * specialized thread function for the GET method
- * Accepts a pointer to the struct task_container
- */
-void* task_GET( void* input){
-    printf("Performing task_GET\n");
-    task_container* container = (task_container*)input;
-    container->start_time = std::chrono::system_clock::now();
-    int x = container->kv_store->lookup(container->key, (container->return_value));
-    container->is_found = (x==0) ? true:false;
-    respond_to_request(container);
-    printf("Completed task_GET\n");
-    return nullptr;
-}
-
-
-
-/*
- * specialized function for the POST method
- * Accepts a pointer to the struct task_container
- */
-void* task_POST( void* input ){
-    printf("Performing task_POST\n");
-    task_container* container = (task_container*)input;
-    container->start_time = std::chrono::system_clock::now();
-    container->kv_store->insert(container->key, container->value);
-    container->md5_store->insert(container->key, md5( container->key ));
-    respond_to_request(container);
-    printf("Completed task_POST\n");
-    return nullptr;
-}
-
-
-
-
-/*
- * specialized method for the DELETE method
- * Accepts a pointer to the struct task_container
- */
-void* task_DELETE( void* input ){
-    task_container* container = (task_container*)input;
-    int x = container->kv_store->lookup(container->key, (container->return_value));
-    container->start_time = std::chrono::system_clock::now();
-    container->is_found = (x==0) ? true:false;
-    container->kv_store->remove(container->key);
-    respond_to_request(container);
-    printf("Completed task_DELETE\n");
-    return nullptr;
-}
-
 
 /*
  * thread created for a new session to take care of its requests
@@ -172,51 +130,65 @@ void* task_DELETE( void* input ){
 void* thread (void* input) {
 
     //retrieve the task container
-    task_container* task_data = (task_container*) input;
+    task_container* container = (task_container*) input;
     int new_sockfd;
 
     while (running_flag) {
 
-        sockets->listen(new_sockfd);
+        container->sockets->listen(new_sockfd);
 
         //Receive the http request
         HTTPReq* request = new HTTPReq(new_sockfd);
-
         //check if EIO
         if (request->parse() < 0) {
             close(new_sockfd);
-            pthread_exit(0);
+        }
+        else {
+            //returns a value and handle if negative one
+            std::string request_method = request->getMethod();
+            double request_version = request->getVersion();
+            std::string request_uri = request->getURI();
+            int request_body = atoi(request->getBody().c_str());
+
+
+            //Package all data into the struct task_container
+            container->new_sockfd = new_sockfd;
+            container->key = request_uri.substr(1);
+            container->value = request_body;
+            container->new_sockfd = new_sockfd;
+            container->method = request_method;
+            container->start_time = std::chrono::system_clock::now();
+
+            //handle process accordingly to the request
+            if(request_method.compare("GET")==0){ //get
+                GET_COUNT++;
+                printf("Performing task_GET\n");
+                int x = container->kv_store->lookup(container->key, (container->return_value));
+                container->is_found = (x==0) ? true:false;
+                respond_to_request(container);
+                printf("Completed task_GET\n");
+
+            }
+            else if(request_method.compare("POST")==0){ //post
+                POST_COUNT++;
+                printf("Performing task_POST\n");
+                container->kv_store->insert(container->key, container->value);
+                container->md5_store->insert(container->key, md5( container->key ));
+                respond_to_request(container);
+                printf("Completed task_POST\n");
+            }
+            else if(request_method.compare("DELETE")==0){ //Delete
+                DELETE_COUNT++;
+                int x = container->kv_store->lookup(container->key, (container->return_value));
+                container->is_found = (x==0) ? true:false;
+                container->kv_store->remove(container->key);
+                respond_to_request(container);
+                printf("Completed task_DELETE\n");
+            }
+            container->sockets->enqueue(new_sockfd);
         }
 
-        //returns a value and handle if negative one
-        std::string request_method = request->getMethod();
-        double request_version = request->getVersion();
-        std::string request_uri = request->getURI();
-        int request_body = atoi(request->getBody().c_str());
 
-
-        //Package all data into the struct task_container
-        task_data->new_sockfd = new_sockfd;
-        task_data->key = request_uri.substr(1);
-        task_data->value = request_body;
-        task_data->new_sockfd = new_sockfd;
-        task_data->method = request_method;
-
-
-        //handle process accordingly to the request
-        if(request_method.compare("GET")==0){
-            GET_COUNT++;
-            thread_pool->add_task(&task_GET, (void*)task_data);
-        }
-        else if(request_method.compare("POST")==0){
-            POST_COUNT++;
-            thread_pool->add_task(&task_POST, (void*)task_data);
-        }
-        else if(request_method.compare("DELETE")==0){
-            DELETE_COUNT++;
-            thread_pool->add_task(&task_DELETE, (void*)task_data);
-        }
-        sockets->enqueue(new_sockfd);
     }
     close(new_sockfd);
     pthread_exit(0);
@@ -231,7 +203,7 @@ void* thread (void* input) {
 
 int main(int argc, char *argv[])
 {
-    int sockfd, new_sockfd;
+    int new_sockfd;
     int port_number;
     socklen_t client_length;
     struct sockaddr_in server_address, client_address;
@@ -264,7 +236,7 @@ int main(int argc, char *argv[])
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0)
-        error("ERROR! Unable to open the listed socker\nw");
+        error("ERROR! Unable to open the listed socket\nw");
 
 
     bzero((char *) &server_address, sizeof(server_address));
@@ -289,7 +261,19 @@ int main(int argc, char *argv[])
 
 
     client_length = sizeof(client_address);
-    signal(SIGINT, SIGINT_handler);
+    signal(SIGINT, SIGINT_handler); //connect handler to signla
+
+
+    //load all threads in the
+    for (int i=0; i<number_of_threads; i++) {
+
+        task_container* task_data= new task_container();
+        task_data->kv_store = key_value_store;
+        task_data->md5_store = md5_hash_store;
+        task_data->sockets = sockets;
+        //create a new thread to hadle the connection and make use of the spawned thread_pool
+        thread_pool->add_task(thread, (void*) task_data);
+    }
 
     //Infinite loop in order for server to receive all requests
     while(running_flag){
@@ -300,12 +284,6 @@ int main(int argc, char *argv[])
 //      create new connection
         new_sockfd = accept(sockfd,(struct sockaddr *) &client_address,&client_length);
         sockets->enqueue(new_sockfd);
-        task_container* task_data= new task_container();
-        task_data->kv_store = key_value_store;
-        task_data->md5_store = md5_hash_store;
-
-        //create a new thread to hadle the connection and make use of the spawned thread_pool
-        thread_pool->add_task(thread, (void*) task_data);
     }
 
 

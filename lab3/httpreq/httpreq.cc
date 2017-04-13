@@ -89,11 +89,9 @@ int HTTPReq::parse(void) {
 			perror("Failed to read body: ");
 			return -1;		//errno is set
 		}
-
 	} else {
 		body_ = "";
 	}
-	
 
 	malformed_ = false;
 	return 0;
@@ -117,6 +115,9 @@ std::string HTTPReq::readLine(void) {
 			} else if (state == 0 && byte == '\r') {
 				state = 1;
 			}
+		} else if (rval == 0) {
+			errno = EIO;
+			return "";
 		}
 	}
 	return line.substr(0, line.length() - 2);
@@ -136,9 +137,6 @@ std::string HTTPReq::readBytes(const size_t length) {
 			data.append(1, byte);
 		} else if (rval != 0) {
 			errno = EFAULT;
-			return "";
-		} else if (rval == 0) {
-			errno = EIO;
 			return "";
 		}
 	}
