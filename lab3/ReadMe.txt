@@ -28,6 +28,9 @@ How to Compile and Run
                         "./serverg.out -p <port_number> -n <number_of_threads>"
 	
 
+***Note to get the server side statistics,press ctrl + c to send a SIGINT.
+The server will stop, print out all results and clean the stored data, and ask if you want to continue. Enter y to exit out of server safely or any other key to continue running further tests.
+
 
 ---------------------------------------------
 Description
