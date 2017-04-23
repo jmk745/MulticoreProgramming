@@ -1,0 +1,12 @@
+Grade: 95
+Feedback:
+(i) Excellent Graphs and Tabultion of Data. (ii) Reasoning out for the data obtained is good too. (iii) Missing mean vs Median difference only (iv) Good Code structure and Commenting/Documentation
+SplitUp:
+Experiments for understanding/improving performance: 40
+Correct Implementation - Counting Requests: 10
+Correct Implementation - Aggregating Min/Max/Med Values: 10
+Implementation - Consideration of First Request, etc (Understanding what they're accounting): 5
+Readable statistics: 10
+Printing Statistics - Console/File: 10
+Code structure and complexity: 10
+Doesn't compile and/or doesn't run successfully: 0
