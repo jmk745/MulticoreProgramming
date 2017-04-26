@@ -1,0 +1,32 @@
+FAILED
+
+
+httperf --client=0/1 --server=crunchy1.cims.nyu.edu --port=5000 --uri=/ --send-buffer=4096 --recv-buffer=16384 --ssl-protocol=auto --wsesslog=64,1.000,../../input/n64m100.txt
+Maximum connect burst length: 1
+
+Total: connections 19 requests 1801 replies 1800 test-duration 32.140 s
+
+Connection rate: 0.6 conn/s (1691.6 ms/conn, <=2 concurrent connections)
+Connection time [ms]: min 195.0 avg 443.6 max 527.0 median 464.5 stddev 89.0
+Connection time [ms]: connect 0.2
+Connection length [replies/conn]: 100.000
+
+Request rate: 56.0 req/s (17.8 ms/req)
+Request size [B]: 292.0
+
+Reply rate [replies/s]: min 0.0 avg 60.0 max 230.0 stddev 98.2 (6 samples)
+Reply time [ms]: response 4.4 transfer 0.0
+Reply size [B]: header 62.0 content 0.0 footer 0.0 (total 62.0)
+Reply status: 1xx=0 2xx=1800 3xx=0 4xx=0 5xx=0
+
+CPU time [s]: user 1.99 system 30.12 (user 6.2% system 93.7% total 99.9%)
+Net I/O: 19.4 KB/s (0.2*10^6 bps)
+
+Errors: total 0 client-timo 0 socket-timo 0 connrefused 0 connreset 0
+Errors: fd-unavail 0 addrunavail 0 ftab-full 0 other 0
+
+Session rate [sess/s]: min 0.00 avg 0.56 max 2.20 stddev 0.96 (18/18)
+Session: avg 1.00 connections/session
+Session lifetime [s]: 0.4
+Session failtime [s]: 0.0
+Session length histogram: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 18
