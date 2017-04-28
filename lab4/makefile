@@ -40,7 +40,7 @@ httpresp.o: httpreq/httpresp.cc httpreq/httpresp.hpp
 md5.o: md5/md5.cpp md5/md5.h
 	${CC} ${cFlag} md5/md5.cpp -o md5.o
 
-Disk_Read_Write.o: Disk_Read_Write/Disk_Read_Write.cpp Disk_Read_Write/Disk_Read_Write.h Thread_Safe_KV_Store_3/Thread_Safe_KV_Store_3.h
+Disk_Read_Write.o: Disk_Read_Write/Disk_Read_Write.cpp Disk_Read_Write/Disk_Read_Write.h
 	${CC} ${cFlag} Disk_Read_Write/Disk_Read_Write.cpp -o Disk_Read_Write.o -pthread
 
 clean:
