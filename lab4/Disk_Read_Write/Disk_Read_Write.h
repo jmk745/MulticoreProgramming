@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string>
+#include <cstring>
 #include <sys/stat.h>
 #include <exception>
 
