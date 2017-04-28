@@ -34,7 +34,7 @@ int DELETE_COUNT=0;
 
 //Global
 //Condition Var and 2 mutecies needed for disk file store
-pthread_mutex_t mutex1, mutex2;
+pthread_mutex_t mutex1, mutex2, mutex3;
 pthread_cond_t condition;
 
 int sockfd;
@@ -176,10 +176,7 @@ void* thread (void* input) {
             if(request_method.compare("GET")==0){ //get
                 GET_COUNT++;
                 printf("Performing task_GET\n");
-                int x = container->kv_store->lookup(container->key, (container->return_value));
-                if (x==-1) { //if value is not found then check on the file storage
-                    x = read_from_file(data_key, &(container->return_value), &mutex1, &condition, &mutex2);
-                }
+                int x = read_from_file_and_cache(container->key, container->return_value, container->kv_store, &mutex1, &condition, &mutex2);
                 container->is_found = (x==0) ? true:false;
                 respond_to_request(container);
                 printf("Completed task_GET\n");
@@ -187,27 +184,19 @@ void* thread (void* input) {
             else if(request_method.compare("POST")==0){ //post
                 POST_COUNT++;
                 printf("Performing task_POST\n");
-                container->kv_store->insert(container->key, container->value);
-                write_to_file(data_key, container->value, &mutex1, &condition, &mutex2);
 
-                //if kv store is at max size, then remove an item at random and insert the new key
-                if (container->kv_store->size() >= 128) {
-                    container->kv_store->remove_random();
-                    container->kv_store->insert(container->key, container->value);
-                }
+                write_to_file_and_cache(container->key, container->value, container->kv_store, &mutex1, &condition, &mutex2);
 
-
-                //worry about the hashes laster
+                //worry about the hashes later
 //                container->md5_store->insert(container->key, md5( container->key ));
                 respond_to_request(container);
                 printf("Completed task_POST\n");
             }
             else if(request_method.compare("DELETE")==0){ //Delete
                 DELETE_COUNT++;
-                int x = container->kv_store->lookup(container->key, (container->return_value));
-                x |= delete_from_file(data_key, &mutex1, &condition, &mutex2);
+
+                int x = delete_from_file_and_cache(container->key, container->kv_store, &mutex1, &condition, &mutex2);
                 container->is_found = (x==0) ? true:false;
-                container->kv_store->remove(container->key);
                 respond_to_request(container);
                 printf("Completed task_DELETE\n");
             }
@@ -238,6 +227,7 @@ int main(int argc, char *argv[])
     //init of global mutecies and condition variable
     pthread_mutex_init(&mutex1, NULL);
     pthread_mutex_init(&mutex2, NULL);
+    pthread_mutex_init(&mutex3, NULL);
     pthread_cond_init(&condition, NULL);
 
 
@@ -303,7 +293,7 @@ int main(int argc, char *argv[])
         task_data->kv_store = key_value_store;
         task_data->md5_store = md5_hash_store;
         task_data->sockets = sockets;
-        //create a new thread to hadle the connection and make use of the spawned thread_pool
+        //create a new thread to handle the connection and make use of the spawned thread_pool
         thread_pool->add_task(thread, (void*) task_data);
     }
 
