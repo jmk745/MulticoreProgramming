@@ -20,7 +20,7 @@
 #include "../Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.cpp"
 #include "../md5/md5.h"
 #include "../md5/md5.cpp"
-
+#include "../Disk_Read_Write/Disk_Read_Write.h"
 
 Thread_Pool* thread_pool;
 Thread_Safe_Queue<int>* thread_times;
@@ -32,9 +32,12 @@ int GET_COUNT=0;
 int POST_COUNT=0;
 int DELETE_COUNT=0;
 
+//Global
+//Condition Var and 2 mutecies needed for disk file store
+pthread_mutex_t mutex1, mutex2;
+pthread_cond_t condition;
 
 int sockfd;
-
 
 /*
  * struct used to store pointers and data for the post, get, and delete functions.
@@ -160,27 +163,49 @@ void* thread (void* input) {
             container->method = request_method;
             container->start_time = std::chrono::system_clock::now();
 
+            char data_key[50];
+            strcpy(data_key, "data/");
+            strcat(data_key, container->key.c_str());
+
+            char hash_key[50];
+            strcpy(data_key, "data/");
+            strcat(hash_key, container->key.c_str());
+            strcat(hash_key, ".hash");
+
             //handle process accordingly to the request
             if(request_method.compare("GET")==0){ //get
                 GET_COUNT++;
                 printf("Performing task_GET\n");
                 int x = container->kv_store->lookup(container->key, (container->return_value));
+                if (x==-1) { //if value is not found then check on the file storage
+                    x = read_from_file(data_key, &(container->return_value), &mutex1, &condition, &mutex2);
+                }
                 container->is_found = (x==0) ? true:false;
                 respond_to_request(container);
                 printf("Completed task_GET\n");
-
             }
             else if(request_method.compare("POST")==0){ //post
                 POST_COUNT++;
                 printf("Performing task_POST\n");
                 container->kv_store->insert(container->key, container->value);
-                container->md5_store->insert(container->key, md5( container->key ));
+                write_to_file(data_key, container->value, &mutex1, &condition, &mutex2);
+
+                //if kv store is at max size, then remove an item at random and insert the new key
+                if (container->kv_store->size() >= 128) {
+                    container->kv_store->remove_random();
+                    container->kv_store->insert(container->key, container->value);
+                }
+
+
+                //worry about the hashes laster
+//                container->md5_store->insert(container->key, md5( container->key ));
                 respond_to_request(container);
                 printf("Completed task_POST\n");
             }
             else if(request_method.compare("DELETE")==0){ //Delete
                 DELETE_COUNT++;
                 int x = container->kv_store->lookup(container->key, (container->return_value));
+                x |= delete_from_file(data_key, &mutex1, &condition, &mutex2);
                 container->is_found = (x==0) ? true:false;
                 container->kv_store->remove(container->key);
                 respond_to_request(container);
@@ -208,6 +233,12 @@ int main(int argc, char *argv[])
     int port_number;
     socklen_t client_length;
     struct sockaddr_in server_address, client_address;
+
+
+    //init of global mutecies and condition variable
+    pthread_mutex_init(&mutex1, NULL);
+    pthread_mutex_init(&mutex2, NULL);
+    pthread_cond_init(&condition, NULL);
 
 
     //implemented getOpt for -n <number of threads for the sever>
@@ -262,7 +293,7 @@ int main(int argc, char *argv[])
 
 
     client_length = sizeof(client_address);
-    signal(SIGINT, SIGINT_handler); //connect handler to signla
+    signal(SIGINT, SIGINT_handler); //connect handler to signal
 
 
     //load all threads in the

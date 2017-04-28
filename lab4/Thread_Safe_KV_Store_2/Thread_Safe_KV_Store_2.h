@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <pthread.h>
 #include <string>
+#include <random>
 
 template <class K, class V> class Thread_Safe_KV_Store_2{
 
@@ -20,6 +21,9 @@ public:
     int accumulate(const K key, const V value);
     int lookup(const K key, V& value);
     int remove(const K key);
+    int remove_random();
+
+
     typename std::unordered_map<K, V>::iterator begin();
     typename std::unordered_map<K, V>::iterator end();
     int size();

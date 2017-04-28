@@ -137,7 +137,7 @@ template <typename K, typename V> int Thread_Safe_KV_Store_2<K, V>::remove(const
 template<typename K, typename V> bool Thread_Safe_KV_Store_2<K, V>::contains(const K key) {
 
     pthread_rwlock_rdlock(&rw_lock);
-    for( auto it : *map){
+    for (auto it : *map){
         if(it.first == key){
             pthread_rwlock_unlock(&rw_lock);
             return true;
@@ -167,3 +167,21 @@ template <typename K, typename V> typename std::unordered_map<K, V>::iterator Th
     return map->end();
 };
 
+
+
+template<typename K, typename V>int Thread_Safe_KV_Store_2<K, V>::remove_random() {
+    try {
+        pthread_rwlock_rdlock(&rw_lock);
+        srand(time(NULL));
+        int r = rand() % map->size();
+        auto it = map->begin();
+        for ( int i=0; i<r && i<map->size(); i++) { it++; }
+        if (map->size()) { map->erase(it); }
+        pthread_rwlock_unlock(&rw_lock);
+        return 0;
+    }
+    catch (std::exception e) {
+        pthread_rwlock_unlock(&rw_lock);
+        return -1;
+    }
+}

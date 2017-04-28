@@ -1,0 +1,26 @@
+//
+// Created by James on 4/28/17.
+//
+
+#ifndef LAB4_DISK_READ_WRITE_H
+#define LAB4_DISK_READ_WRITE_H
+//
+// Created by James on 4/25/17.
+//
+
+#include <pthread.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string>
+#include <sys/stat.h>
+#include <exception>
+
+
+int write_to_file (const char* key, int value, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
+
+int read_from_file (const char* key, int* value, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
+
+int delete_from_file(const char* key, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
+
+#endif //LAB4_DISK_READ_WRITE_H
