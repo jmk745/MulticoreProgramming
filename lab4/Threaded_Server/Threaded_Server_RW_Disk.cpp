@@ -176,7 +176,7 @@ void* thread (void* input) {
             if(request_method.compare("GET")==0){ //get
                 GET_COUNT++;
                 printf("Performing task_GET\n");
-                int x = read_from_file_and_cache(container->key, container->return_value, container->kv_store, &mutex1, &condition, &mutex2);
+                int x = read_from_file_and_cache (container->key.c_str(), &(container->return_value), container->kv_store, &mutex1, &condition, &mutex2);
                 container->is_found = (x==0) ? true:false;
                 respond_to_request(container);
                 printf("Completed task_GET\n");
@@ -185,7 +185,7 @@ void* thread (void* input) {
                 POST_COUNT++;
                 printf("Performing task_POST\n");
 
-                write_to_file_and_cache(container->key, container->value, container->kv_store, &mutex1, &condition, &mutex2);
+                write_to_file_and_cache(container->key.c_str(), container->value, container->kv_store, &mutex1, &condition, &mutex2);
 
                 //worry about the hashes later
 //                container->md5_store->insert(container->key, md5( container->key ));
@@ -195,7 +195,7 @@ void* thread (void* input) {
             else if(request_method.compare("DELETE")==0){ //Delete
                 DELETE_COUNT++;
 
-                int x = delete_from_file_and_cache(container->key, container->kv_store, &mutex1, &condition, &mutex2);
+                int x = delete_from_file_and_cache(container->key.c_str(), container->kv_store, &mutex1, &condition, &mutex2);
                 container->is_found = (x==0) ? true:false;
                 respond_to_request(container);
                 printf("Completed task_DELETE\n");

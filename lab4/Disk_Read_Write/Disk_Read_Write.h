@@ -16,7 +16,8 @@
 #include <sys/stat.h>
 #include <exception>
 
-#include "../Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.h"
+//#include "../Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.h"
+#include "../Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.cpp"
 
 
 //Basic Functions for reading and writing from files on disk
@@ -31,10 +32,15 @@ int delete_from_file(const char* key, pthread_mutex_t* mutex, pthread_cond_t* co
 
 //Upgraded functions to inlcude KV_store in one atomic read or write
 
-int read_from_file_and_cache (const char* key, int* value, Thread_Safe_KV_Store_2* kv_store, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
+int write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
+                             pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
 
-int write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2* kv_store, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
+int read_from_file_and_cache (const char* key, int* value, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
+                              pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
 
-int delete_from_file_and_cache(const char* key, Thread_Safe_KV_Store_2* kv_store, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
+int delete_from_file_and_cache (const char* key, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
+                               pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
+
+
 
 #endif //LAB4_DISK_READ_WRITE_H

@@ -168,16 +168,8 @@ int delete_from_file(const char* key, pthread_mutex_t* mutex, pthread_cond_t* co
 
 
 
-
-
-
-
-
-
-
-
-
-int write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2* kv_store, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
+int write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
+                             pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
 
     char key_wrlock[50];
     char key_rdlock[50];
@@ -235,7 +227,8 @@ int write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2*
     return 0;
 }
 
-int read_from_file (const char* key, int* value, Thread_Safe_KV_Store_2* kv_store,pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
+int read_from_file_and_cache (const char* key, int* value, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
+                              pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
 
     char key_wrlock[50];
     char key_rdlock[50];
@@ -251,7 +244,7 @@ int read_from_file (const char* key, int* value, Thread_Safe_KV_Store_2* kv_stor
         //
         pthread_mutex_lock(&(*mutex));
 
-        if (kv_store->lookup(key, &value) == 0) {
+        if (kv_store->lookup(key, *value) == 0) {
             return 0; //item is found
         }
             //proceed to check into files
@@ -296,7 +289,8 @@ int read_from_file (const char* key, int* value, Thread_Safe_KV_Store_2* kv_stor
     return is_found;
 }
 
-int delete_from_file_and_cache(const char* key, pthread_mutex_t* mutex, Thread_Safe_KV_Store_2* kv_store,pthread_cond_t* condition, pthread_mutex_t* cond_mutex){
+int delete_from_file_and_cache(const char* key, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
+                               pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex){
 
     char key_wrlock[50];
     char key_rdlock[50];
