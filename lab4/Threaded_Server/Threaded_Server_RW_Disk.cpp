@@ -17,7 +17,6 @@
 
 #include "../Thread_Pool/Thread_Pool.h"
 #include "../Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.h"
-#include "../Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.cpp"
 #include "../md5/md5.h"
 #include "../md5/md5.cpp"
 #include "../Disk_Read_Write/Disk_Read_Write.h"

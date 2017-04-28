@@ -166,8 +166,6 @@ int delete_from_file(const char* key, pthread_mutex_t* mutex, pthread_cond_t* co
 
 
 
-
-
 int write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
                              pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
 

@@ -137,7 +137,7 @@ template <typename K, typename V> int Thread_Safe_KV_Store_2<K, V>::remove(const
 template<typename K, typename V> bool Thread_Safe_KV_Store_2<K, V>::contains(const K key) {
 
     pthread_rwlock_rdlock(&rw_lock);
-    for (auto it : *map){
+    for( auto it : *map){
         if(it.first == key){
             pthread_rwlock_unlock(&rw_lock);
             return true;
@@ -157,19 +157,8 @@ template  <typename K, typename V> int Thread_Safe_KV_Store_2<K, V>::size(){
     return temp;
 };
 
-//The following methods are Not thread safe. Beware
 
-template <typename K, typename V> typename std::unordered_map<K, V>::iterator Thread_Safe_KV_Store_2<K, V>::begin(){
-    return map->begin();
-};
-
-template <typename K, typename V> typename std::unordered_map<K, V>::iterator Thread_Safe_KV_Store_2<K, V>::end(){
-    return map->end();
-};
-
-
-
-template<typename K, typename V>int Thread_Safe_KV_Store_2<K, V>::remove_random() {
+template <typename K, typename V> int Thread_Safe_KV_Store_2<K, V>::remove_random() {
     try {
         pthread_rwlock_rdlock(&rw_lock);
         srand(time(NULL));
@@ -184,4 +173,27 @@ template<typename K, typename V>int Thread_Safe_KV_Store_2<K, V>::remove_random(
         pthread_rwlock_unlock(&rw_lock);
         return -1;
     }
-}
+};
+
+//The following methods are Not thread safe. Beware
+
+template <typename K, typename V> typename std::unordered_map<K, V>::iterator Thread_Safe_KV_Store_2<K, V>::begin(){
+    return map->begin();
+};
+
+template <typename K, typename V> typename std::unordered_map<K, V>::iterator Thread_Safe_KV_Store_2<K, V>::end(){
+    return map->end();
+};
+
+
+template class Thread_Safe_KV_Store_2<std::string, int>;
+template class Thread_Safe_KV_Store_2<const char*, int>;
+template class Thread_Safe_KV_Store_2<char*, int>;
+template class Thread_Safe_KV_Store_2<char, int>;
+template class Thread_Safe_KV_Store_2<int, int>;
+
+template class Thread_Safe_KV_Store_2<std::string, std::string>;
+//template class Thread_Safe_KV_Store_2<std::string, const char*>;
+//template class Thread_Safe_KV_Store_2<std::string, char*>;
+//template class Thread_Safe_KV_Store_2<std::string, char>;
+

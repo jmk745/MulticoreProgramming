@@ -8,7 +8,7 @@ serverg.out: Threaded_Server_G.o Thread_Safe_KV_Store.o Thread_Pool.o httpreq.o 
 	${CC} Threaded_Server_G.o Thread_Safe_KV_Store.o Thread_Pool.o httpreq.o httpresp.o -o serverg.out -pthread
 
 serverrw.out: Threaded_Server_RW.o Thread_Safe_KV_Store_2.o Thread_Pool.o httpreq.o httpresp.o Disk_Read_Write.o
-	${CC} Threaded_Server_RW.o Thread_Safe_KV_Store_2.o Thread_Pool.o httpreq.o httpresp.o Disk_Read_Write.o -o serverrw.out -pthread
+	${CC} Threaded_Server_RW.o Thread_Pool.o Thread_Safe_KV_Store_2.o httpreq.o httpresp.o Disk_Read_Write.o -o serverrw.out -pthread
 
 Thread_Pool.o: Thread_Pool/Thread_Pool.cpp Thread_Pool/Thread_Pool.h
 	${CC} ${cFlag} Thread_Pool/Thread_Pool.cpp -o Thread_Pool.o
@@ -40,7 +40,7 @@ httpresp.o: httpreq/httpresp.cc httpreq/httpresp.hpp
 md5.o: md5/md5.cpp md5/md5.h
 	${CC} ${cFlag} md5/md5.cpp -o md5.o
 
-Disk_Read_Write.o: Disk_Read_Write/Disk_Read_Write.cpp Disk_Read_Write/Disk_Read_Write.h
+Disk_Read_Write.o: Disk_Read_Write/Disk_Read_Write.cpp Disk_Read_Write/Disk_Read_Write.h Thread_Safe_KV_Store_3/Thread_Safe_KV_Store_3.h
 	${CC} ${cFlag} Disk_Read_Write/Disk_Read_Write.cpp -o Disk_Read_Write.o -pthread
 
 clean:

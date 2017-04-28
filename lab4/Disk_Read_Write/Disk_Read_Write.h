@@ -16,9 +16,7 @@
 #include <sys/stat.h>
 #include <exception>
 
-//#include "../Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.h"
-#include "../Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.cpp"
-
+#include "../Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.h"
 
 //Basic Functions for reading and writing from files on disk
 

@@ -22,8 +22,6 @@ public:
     int lookup(const K key, V& value);
     int remove(const K key);
     int remove_random();
-
-
     typename std::unordered_map<K, V>::iterator begin();
     typename std::unordered_map<K, V>::iterator end();
     int size();
@@ -33,6 +31,5 @@ private:
     bool contains(const K key);
     pthread_rwlock_t rw_lock;
 };
-
 
 #endif //LAB2_THREAD_SAFE_KV_STORE_2_H

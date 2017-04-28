@@ -20,12 +20,12 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="Threaded_Server_RW_Disk.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server_RW_Disk.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4140">
-              <caret line="276" column="34" lean-forward="false" selection-start-line="276" selection-start-column="23" selection-end-line="276" selection-end-column="34" />
+            <state relative-caret-position="267">
+              <caret line="268" column="49" lean-forward="false" selection-start-line="268" selection-start-column="49" selection-end-line="268" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -34,24 +34,37 @@
       <file leaf-file-name="Disk_Read_Write.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Disk_Read_Write/Disk_Read_Write.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+            <state relative-caret-position="570">
+              <caret line="38" column="71" lean-forward="false" selection-start-line="38" selection-start-column="71" selection-end-line="38" selection-end-column="71" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Disk_Read_Write.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Disk_Read_Write.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Disk_Read_Write/Disk_Read_Write.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="165" column="0" lean-forward="true" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
+            <state relative-caret-position="531">
+              <caret line="163" column="0" lean-forward="true" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
               <folding>
                 <element signature="e#1672#3268#0" expanded="false" />
                 <element signature="e#3270#4769#0" expanded="false" />
-                <element signature="e#4778#6706#0" expanded="false" />
-                <element signature="e#6708#8673#0" expanded="false" />
-                <element signature="e#8675#10349#0" expanded="false" />
+                <element signature="e#4776#6704#0" expanded="false" />
+                <element signature="e#6706#8671#0" expanded="false" />
+                <element signature="e#8673#10347#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Thread_Safe_KV_Store_2.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="745">
+              <caret line="198" column="0" lean-forward="true" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
+              <folding>
+                <element signature="e#4037#4061#0" expanded="true" />
+                <element signature="e#4238#4262#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -61,26 +74,28 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>remove</find>
       <find>size</find>
       <find>read_from</find>
       <find>read_from_file</find>
       <find>Thread_Safe</find>
+      <find>_2</find>
+      <find>remove</find>
+      <find>_3</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/main.cpp" />
-        <option value="$PROJECT_DIR$/Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.h" />
-        <option value="$PROJECT_DIR$/Thread_Safe_KV_Store_2/test_for_Thread_Safe_KV_Store_2.cpp" />
-        <option value="$PROJECT_DIR$/Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.cpp" />
         <option value="$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp" />
         <option value="$PROJECT_DIR$/rw_files.cpp" />
         <option value="$PROJECT_DIR$/Disk_Read_Write/main.cpp" />
+        <option value="$PROJECT_DIR$/Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.h" />
+        <option value="$PROJECT_DIR$/Thread_Safe_KV_Store_2/test_for_Thread_Safe_KV_Store_2.cpp" />
         <option value="$PROJECT_DIR$/Threaded_Server/Threaded_Server_RW_Disk.cpp" />
         <option value="$PROJECT_DIR$/Disk_Read_Write/Disk_Read_Write.h" />
         <option value="$PROJECT_DIR$/Disk_Read_Write/Disk_Read_Write.cpp" />
+        <option value="$PROJECT_DIR$/Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.cpp" />
       </list>
     </option>
   </component>
@@ -169,6 +184,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -279,9 +295,17 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.grunt" factoryName="Grunt.js">
+      <node-interpreter value="project" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -375,12 +399,13 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1493155611709</updated>
-      <workItem from="1493155613576" duration="27316000" />
+      <workItem from="1493155613576" duration="29929000" />
+      <workItem from="1493415960465" duration="1108000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27316000" />
+    <option name="totallyTimeSpent" value="31037000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -398,11 +423,11 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -419,15 +444,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="1" lean-forward="false" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+    <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server_RW_Disk.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -435,35 +452,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Thread_Safe_KV_Store_2/test_for_Thread_Safe_KV_Store_2.cpp">
+    <entry file="file://$PROJECT_DIR$/Disk_Read_Write/Disk_Read_Write.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="76" column="41" lean-forward="false" selection-start-line="76" selection-start-column="41" selection-end-line="76" selection-end-column="41" />
+        <state relative-caret-position="270">
+          <caret line="18" column="25" lean-forward="false" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Disk_Read_Write/Disk_Read_Write.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4365">
+          <caret line="291" column="70" lean-forward="false" selection-start-line="291" selection-start-column="70" selection-end-line="291" selection-end-column="70" />
+          <folding>
+            <element signature="e#1672#3268#0" expanded="false" />
+            <element signature="e#3270#4769#0" expanded="false" />
+            <element signature="e#4776#6704#0" expanded="false" />
+            <element signature="e#6706#8671#0" expanded="false" />
+            <element signature="e#8673#10347#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp" />
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt" />
     <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
           <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rw_files.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="10" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/rw_files.cpp" />
     <entry file="file://$PROJECT_DIR$/Thread_Pool/Thread_Pool.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -471,6 +495,29 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="21" column="23" lean-forward="false" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Thread_Safe_KV_Store_3/Thread_Safe_KV_Store_3.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="653">
+          <caret line="164" column="6" lean-forward="true" selection-start-line="149" selection-start-column="4" selection-end-line="164" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Thread_Safe_KV_Store_3/test_for_Thread_Safe_KV_Store_3.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-387">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Thread_Safe_KV_Store_2/test_for_Thread_Safe_KV_Store_2.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -478,45 +525,48 @@
     <entry file="file://$PROJECT_DIR$/Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="12" column="5" lean-forward="false" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="177" column="59" lean-forward="false" selection-start-line="177" selection-start-column="59" selection-end-line="177" selection-end-column="59" />
+          <caret line="12" column="16" lean-forward="false" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server_RW_Disk.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4140">
-          <caret line="276" column="34" lean-forward="false" selection-start-line="276" selection-start-column="23" selection-end-line="276" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Disk_Read_Write/Disk_Read_Write.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="267">
+          <caret line="268" column="49" lean-forward="false" selection-start-line="268" selection-start-column="49" selection-end-line="268" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Disk_Read_Write/Disk_Read_Write.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="165" column="0" lean-forward="true" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
+        <state relative-caret-position="531">
+          <caret line="163" column="0" lean-forward="true" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
           <folding>
             <element signature="e#1672#3268#0" expanded="false" />
             <element signature="e#3270#4769#0" expanded="false" />
-            <element signature="e#4778#6706#0" expanded="false" />
-            <element signature="e#6708#8673#0" expanded="false" />
-            <element signature="e#8675#10349#0" expanded="false" />
+            <element signature="e#4776#6704#0" expanded="false" />
+            <element signature="e#6706#8671#0" expanded="false" />
+            <element signature="e#8673#10347#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Disk_Read_Write/Disk_Read_Write.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="38" column="71" lean-forward="false" selection-start-line="38" selection-start-column="71" selection-end-line="38" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="745">
+          <caret line="198" column="0" lean-forward="true" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
+          <folding>
+            <element signature="e#4037#4061#0" expanded="true" />
+            <element signature="e#4238#4262#0" expanded="true" />
           </folding>
         </state>
       </provider>
