@@ -165,11 +165,15 @@ void* thread (void* input) {
             container->method = request_method;
             container->start_time = std::chrono::system_clock::now();
 
+            char data_key[50];
+            strcpy(data_key, "data/");
+            strcat(data_key, container->key.c_str());
+
             //handle process accordingly to the request
             if(request_method.compare("GET")==0){ //get
                 GET_COUNT++;
                 printf("Performing task_GET\n");
-                int x = read_from_file_and_cache(container->key.c_str(), &(container->return_value), container->kv_store, &mutex1, &condition, &mutex2);
+                int x = read_from_file_and_cache(data_key, &(container->return_value), container->kv_store, &mutex1, &condition, &mutex2);
                 container->is_found = (x==0) ? true:false;
                 respond_to_request(container);
                 printf("Completed task_GET\n");
@@ -178,14 +182,14 @@ void* thread (void* input) {
             else if(request_method.compare("POST")==0){ //post
                 POST_COUNT++;
                 printf("Performing task_POST\n");
-                write_to_file_and_cache(container->key.c_str(), container->value, container->kv_store, &mutex1, &condition, &mutex2);
+                write_to_file_and_cache(data_key, container->value, container->kv_store, &mutex1, &condition, &mutex2);
 //                container->md5_store->insert(container->key, md5( container->key ));
                 respond_to_request(container);
                 printf("Completed task_POST\n");
             }
             else if(request_method.compare("DELETE")==0){ //Delete
                 DELETE_COUNT++;
-                int x = delete_from_file_and_cache(container->key.c_str(), container->kv_store, &mutex1, &condition, &mutex2);
+                int x = delete_from_file_and_cache(data_key, container->kv_store, &mutex1, &condition, &mutex2);
                 container->is_found = (x==0) ? true:false;
                 respond_to_request(container);
                 printf("Completed task_DELETE\n");
@@ -203,7 +207,6 @@ void* thread (void* input) {
  * main function needed to initialize the thread pool and run an infinite loop for the the socket
  * the running binary to accept new connections and process the requests
  */
-
 int main(int argc, char *argv[])
 {
     int new_sockfd;

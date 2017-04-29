@@ -211,7 +211,7 @@ int write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2<
     file = fopen(key, "w");
     fprintf(file, "%i", value); //write to the file
     fclose(file);
-
+    sleep(1);
     //
     // Critical Zone -- Start
     //
