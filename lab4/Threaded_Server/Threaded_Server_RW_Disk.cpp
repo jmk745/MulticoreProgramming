@@ -138,8 +138,10 @@ void* thread (void* input) {
 
     while (running_flag) {
 
+        printf("Waiting to get next socket..\n");
         container->sockets->listen(new_sockfd);
 
+        printf("Waititing to receive a request...\n");
         //Receive the http request
         HTTPReq* request = new HTTPReq(new_sockfd);
         //check if EIO
