@@ -144,6 +144,7 @@ void* thread (void* input) {
         HTTPReq* request = new HTTPReq(new_sockfd);
         //check if EIO
         if (request->parse() < 0) {
+            printf("Parse Failed\n");
             close(new_sockfd);
         }
         else {
@@ -152,7 +153,6 @@ void* thread (void* input) {
             double request_version = request->getVersion();
             std::string request_uri = request->getURI();
             int request_body = atoi(request->getBody().c_str());
-
 
             //Package all data into the struct task_container
             container->new_sockfd = new_sockfd;
@@ -201,8 +201,6 @@ void* thread (void* input) {
             }
             container->sockets->enqueue(new_sockfd);
         }
-
-
     }
     close(new_sockfd);
     pthread_exit(0);

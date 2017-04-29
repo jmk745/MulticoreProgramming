@@ -142,6 +142,7 @@ void* thread (void* input) {
         HTTPReq* request = new HTTPReq(new_sockfd);
         //check if EIO
         if (request->parse() < 0) {
+            printf("Parse Failed\n");
             close(new_sockfd);
         }
         else {
@@ -188,8 +189,6 @@ void* thread (void* input) {
             }
             container->sockets->enqueue(new_sockfd);
         }
-
-
     }
     close(new_sockfd);
     pthread_exit(0);
