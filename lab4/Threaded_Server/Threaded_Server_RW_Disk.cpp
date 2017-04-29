@@ -201,6 +201,7 @@ void* thread (void* input) {
             }
             container->sockets->enqueue(new_sockfd);
         }
+        printf("Got Here!\n");
     }
     close(new_sockfd);
     pthread_exit(0);
