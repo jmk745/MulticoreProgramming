@@ -31,22 +31,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Threaded_Server_RW.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Threaded_Server_RW.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server_RW.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1239">
-              <caret line="297" column="0" lean-forward="true" selection-start-line="297" selection-start-column="0" selection-end-line="297" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="makefile" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/makefile">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="31" column="53" lean-forward="true" selection-start-line="31" selection-start-column="53" selection-end-line="31" selection-end-column="53" />
-              <folding />
+            <state relative-caret-position="262">
+              <caret line="263" column="16" lean-forward="false" selection-start-line="263" selection-start-column="16" selection-end-line="263" selection-end-column="16" />
+              <folding>
+                <element signature="e#563#586#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -77,8 +69,8 @@
         <option value="$PROJECT_DIR$/Disk_Read_Write/Disk_Read_Write.h" />
         <option value="$PROJECT_DIR$/Threaded_Server/Threaded_Server.cpp" />
         <option value="$PROJECT_DIR$/Threaded_Server/Threaded_Server_RW_Disk.cpp" />
-        <option value="$PROJECT_DIR$/Threaded_Server/Threaded_Server_RW.cpp" />
         <option value="$PROJECT_DIR$/makefile" />
+        <option value="$PROJECT_DIR$/Threaded_Server/Threaded_Server_RW.cpp" />
       </list>
     </option>
   </component>
@@ -369,12 +361,12 @@
       <option name="presentableId" value="Default" />
       <updated>1493155611709</updated>
       <workItem from="1493155613576" duration="29929000" />
-      <workItem from="1493415960465" duration="3094000" />
+      <workItem from="1493415960465" duration="3269000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33023000" />
+    <option name="totallyTimeSpent" value="33198000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -549,19 +541,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server_RW.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1239">
-          <caret line="297" column="0" lean-forward="true" selection-start-line="297" selection-start-column="0" selection-end-line="297" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/makefile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="31" column="53" lean-forward="true" selection-start-line="31" selection-start-column="53" selection-end-line="31" selection-end-column="53" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server_RW.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="263" column="16" lean-forward="false" selection-start-line="263" selection-start-column="16" selection-end-line="263" selection-end-column="16" />
+          <folding>
+            <element signature="e#563#586#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

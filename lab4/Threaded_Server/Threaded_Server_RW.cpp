@@ -17,9 +17,10 @@
 
 #include "../Thread_Pool/Thread_Pool.h"
 #include "../Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.h"
-#include "../Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.cpp"
+//#include "../Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.cpp"
 #include "../md5/md5.h"
 #include "../md5/md5.cpp"
+#include "../Disk_Read_Write/Disk_Read_Write.h"
 
 
 Thread_Pool* thread_pool;
@@ -32,6 +33,9 @@ int GET_COUNT=0;
 int POST_COUNT=0;
 int DELETE_COUNT=0;
 
+
+pthread_mutex_t mutex1, mutex2;
+pthread_cond_t condition;
 
 int sockfd;
 
@@ -254,6 +258,10 @@ int main(int argc, char *argv[])
     thread_pool->init(number_of_threads);
     thread_times = new Thread_Safe_Queue<int>();
     sockets = new Thread_Safe_Queue<int>();
+
+    pthread_mutex_init(&mutex1, NULL);
+    pthread_mutex_init(&mutex2, NULL);
+    pthread_cond_init(&condition, NULL);
 
     //Initialize Thread Safe KV stores for the key and string as well as the hash values
     Thread_Safe_KV_Store_2<std::string, int>* key_value_store = new Thread_Safe_KV_Store_2<std::string, int>();
