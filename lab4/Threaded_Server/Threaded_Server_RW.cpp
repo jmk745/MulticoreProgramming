@@ -185,9 +185,8 @@ void* thread (void* input) {
             }
             else if(request_method.compare("DELETE")==0){ //Delete
                 DELETE_COUNT++;
-                int x = container->kv_store->lookup(container->key, (container->return_value));
+                int x = delete_from_file_and_cache(container->key.c_str(), container->kv_store, &mutex1, &condition, &mutex2);
                 container->is_found = (x==0) ? true:false;
-                container->kv_store->remove(container->key);
                 respond_to_request(container);
                 printf("Completed task_DELETE\n");
             }
