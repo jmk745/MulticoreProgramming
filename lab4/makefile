@@ -28,8 +28,8 @@ Threaded_Server.o: Threaded_Server/Threaded_Server.cpp
 Threaded_Server_G.o: Threaded_Server/Threaded_Server_Global_Lock.cpp
 	${CC} ${cFlag} Threaded_Server/Threaded_Server_Global_Lock.cpp -o Threaded_Server_G.o
 
-Threaded_Server_RW.o: Threaded_Server/Threaded_Server_RW_Disk.cpp
-	${CC} ${cFlag} Threaded_Server/Threaded_Server_RW_Disk.cpp -o Threaded_Server_RW.o
+Threaded_Server_RW.o: Threaded_Server/Threaded_Server_RW.cpp
+	${CC} ${cFlag} Threaded_Server/Threaded_Server_RW.cpp -o Threaded_Server_RW.o
 
 httpreq.o: httpreq/httpreq.cc httpreq/httpreq.hpp
 	${CC} ${cFlag} httpreq/httpreq.cc -o httpreq.o
