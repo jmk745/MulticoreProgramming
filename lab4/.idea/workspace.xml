@@ -34,8 +34,8 @@
       <file leaf-file-name="Threaded_Server_RW.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server_RW.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="263" column="16" lean-forward="false" selection-start-line="263" selection-start-column="16" selection-end-line="263" selection-end-column="16" />
+            <state relative-caret-position="554">
+              <caret line="170" column="48" lean-forward="false" selection-start-line="170" selection-start-column="48" selection-end-line="170" selection-end-column="48" />
               <folding>
                 <element signature="e#563#586#0" expanded="true" />
               </folding>
@@ -361,12 +361,12 @@
       <option name="presentableId" value="Default" />
       <updated>1493155611709</updated>
       <workItem from="1493155613576" duration="29929000" />
-      <workItem from="1493415960465" duration="3269000" />
+      <workItem from="1493415960465" duration="3437000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33198000" />
+    <option name="totallyTimeSpent" value="33366000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -551,8 +551,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server_RW.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="263" column="16" lean-forward="false" selection-start-line="263" selection-start-column="16" selection-end-line="263" selection-end-column="16" />
+        <state relative-caret-position="554">
+          <caret line="170" column="48" lean-forward="false" selection-start-line="170" selection-start-column="48" selection-end-line="170" selection-end-column="48" />
           <folding>
             <element signature="e#563#586#0" expanded="true" />
           </folding>

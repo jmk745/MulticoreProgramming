@@ -169,7 +169,7 @@ void* thread (void* input) {
             if(request_method.compare("GET")==0){ //get
                 GET_COUNT++;
                 printf("Performing task_GET\n");
-                int x = container->kv_store->lookup(container->key, (container->return_value));
+                int x = read_from_file_and_cache(container->kv_store, &(container->return_value), &mutex1, &condition, &mutex2);
                 container->is_found = (x==0) ? true:false;
                 respond_to_request(container);
                 printf("Completed task_GET\n");
