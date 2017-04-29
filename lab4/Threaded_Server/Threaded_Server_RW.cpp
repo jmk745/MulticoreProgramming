@@ -178,8 +178,8 @@ void* thread (void* input) {
             else if(request_method.compare("POST")==0){ //post
                 POST_COUNT++;
                 printf("Performing task_POST\n");
-                container->kv_store->insert(container->key, container->value);
-                container->md5_store->insert(container->key, md5( container->key ));
+                write_to_file_and_cache(container->key.c_str(), container->value, container->kv_store, &mutex1, &condition, &mutex2);
+//                container->md5_store->insert(container->key, md5( container->key ));
                 respond_to_request(container);
                 printf("Completed task_POST\n");
             }
