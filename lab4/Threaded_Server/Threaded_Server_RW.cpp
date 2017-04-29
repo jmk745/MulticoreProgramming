@@ -169,7 +169,7 @@ void* thread (void* input) {
             if(request_method.compare("GET")==0){ //get
                 GET_COUNT++;
                 printf("Performing task_GET\n");
-                int x = read_from_file_and_cache( container->key, &(container->return_value), container->kv_store, &mutex1, &condition, &mutex2);
+                int x = read_from_file_and_cache(container->key.c_str(), &(container->return_value), container->kv_store, &mutex1, &condition, &mutex2);
                 container->is_found = (x==0) ? true:false;
                 respond_to_request(container);
                 printf("Completed task_GET\n");
