@@ -34,8 +34,8 @@
       <file leaf-file-name="Threaded_Server_RW.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server_RW.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="662">
-              <caret line="189" column="46" lean-forward="true" selection-start-line="189" selection-start-column="46" selection-end-line="189" selection-end-column="46" />
+            <state relative-caret-position="632">
+              <caret line="187" column="25" lean-forward="true" selection-start-line="187" selection-start-column="25" selection-end-line="187" selection-end-column="25" />
               <folding>
                 <element signature="e#563#586#0" expanded="true" />
               </folding>
@@ -361,12 +361,12 @@
       <option name="presentableId" value="Default" />
       <updated>1493155611709</updated>
       <workItem from="1493155613576" duration="29929000" />
-      <workItem from="1493415960465" duration="3821000" />
+      <workItem from="1493415960465" duration="3899000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33750000" />
+    <option name="totallyTimeSpent" value="33828000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -551,8 +551,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Threaded_Server/Threaded_Server_RW.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="662">
-          <caret line="189" column="46" lean-forward="true" selection-start-line="189" selection-start-column="46" selection-end-line="189" selection-end-column="46" />
+        <state relative-caret-position="632">
+          <caret line="187" column="25" lean-forward="true" selection-start-line="187" selection-start-column="25" selection-end-line="187" selection-end-column="25" />
           <folding>
             <element signature="e#563#586#0" expanded="true" />
           </folding>
