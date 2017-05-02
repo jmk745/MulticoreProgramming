@@ -48,6 +48,9 @@ int main(){
     test->lookup(4, x);
     printf("Value for 0 is: %d\n", x);
 
+    std::pair<int, int>* p = test->remove_random_and_return();
+    printf("Obtained pair with first: %i and second: %i\n", p->first, p->second);
+    printf("Size is %d\n", test->size());
     printf("Test Completed\n\n");
     return 0;
 }

@@ -40,6 +40,8 @@ int read_from_file_and_cache (const char* key, int* value, Thread_Safe_KV_Store_
 int delete_from_file_and_cache (const char* key, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
                                pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
 
-
+//a more efficient implementatiion where a value is written/updated to disk only if it is evicted.
+int smart_write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
+                             pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
 
 #endif //LAB4_DISK_READ_WRITE_H

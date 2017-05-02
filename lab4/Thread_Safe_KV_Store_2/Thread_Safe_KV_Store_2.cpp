@@ -160,7 +160,7 @@ template  <typename K, typename V> int Thread_Safe_KV_Store_2<K, V>::size(){
 
 template <typename K, typename V> int Thread_Safe_KV_Store_2<K, V>::remove_random() {
     try {
-        pthread_rwlock_rdlock(&rw_lock);
+        pthread_rwlock_wrlock(&rw_lock);
         srand(time(NULL));
         int r = rand() % map->size();
         auto it = map->begin();
@@ -172,6 +172,51 @@ template <typename K, typename V> int Thread_Safe_KV_Store_2<K, V>::remove_rando
     catch (std::exception e) {
         pthread_rwlock_unlock(&rw_lock);
         return -1;
+    }
+};
+
+
+template <typename K, typename V> std::pair<K, V>* Thread_Safe_KV_Store_2<K, V>::remove_random_and_return() {
+
+    try {
+        pthread_rwlock_wrlock(&rw_lock);
+        srand(time(NULL));
+        int r = rand() % map->size();
+        auto it = map->begin();
+        for ( int i=0; i<r && i<map->size(); i++) { it++; }
+        std::pair<K, V>* return_pair = nullptr;
+        if (map->size()) {
+//            return_pair = std::make_pair(it->first, it->second);
+            return_pair = new std::pair<K, V>;
+            return_pair->first = (*it).first;
+            return_pair->second = (*it).second;
+            map->erase(it);
+        }
+        pthread_rwlock_unlock(&rw_lock);
+        return return_pair;
+    }
+    catch (std::exception e) {
+        pthread_rwlock_unlock(&rw_lock);
+        return nullptr;
+    }
+};
+
+template <typename K, typename V> std::pair<K, V>* Thread_Safe_KV_Store_2<K, V>::get_random() {
+
+    try {
+        pthread_rwlock_wrlock(&rw_lock);
+        srand(time(NULL));
+        int r = rand() % map->size();
+        auto it = map->begin();
+        for ( int i=0; i<r && i<map->size(); i++) { it++; }
+        std::pair<K, V>* return_pair = nullptr;
+        if (map->size()) { return_pair = (std::pair<K, V> *) (&(*it)); }
+        pthread_rwlock_unlock(&rw_lock);
+        return return_pair;
+    }
+    catch (std::exception e) {
+        pthread_rwlock_unlock(&rw_lock);
+        return nullptr;
     }
 };
 

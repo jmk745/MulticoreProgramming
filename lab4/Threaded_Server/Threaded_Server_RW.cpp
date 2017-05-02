@@ -254,6 +254,10 @@ int main(int argc, char *argv[])
     if (bind(sockfd, (struct sockaddr *) &server_address, sizeof(server_address)) < 0)
         error("ERROR on binding");
 
+    //Clean out the directory
+    printf("Clearing data storage\n");
+    system("rm -rf data/*");
+
 
 //    Initialize the thread pool and launch all threads.
     thread_pool = new Thread_Pool();

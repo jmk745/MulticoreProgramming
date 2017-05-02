@@ -22,6 +22,8 @@ public:
     int lookup(const K key, V& value);
     int remove(const K key);
     int remove_random();
+    std::pair<K, V>* remove_random_and_return();
+    std::pair<K, V>* get_random();
     typename std::unordered_map<K, V>::iterator begin();
     typename std::unordered_map<K, V>::iterator end();
     int size();

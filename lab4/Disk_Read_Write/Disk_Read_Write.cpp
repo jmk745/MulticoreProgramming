@@ -339,3 +339,66 @@ int delete_from_file_and_cache(const char* key, Thread_Safe_KV_Store_2<std::stri
     pthread_cond_broadcast(&(*condition)); //signal to other threads that lock state ahs changed
     return found;
 }
+
+
+int smart_write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
+                             pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
+
+    char key_wrlock[50];
+    char key_rdlock[50];
+    FILE* file;
+    auto pair;
+
+    while (1) {
+
+        //
+        // Critical Zone -- Start
+        //
+        pthread_mutex_lock(&(*mutex));
+        pair = kv_store->get_random(); // get a random pair from kv_store
+        strcpy(key_wrlock, pair->first);
+        strcpy(key_rdlock , pair->first);
+        strcat(key_wrlock, ".wrlock");
+        strcat(key_rdlock, ".rdlock");
+
+        if (kv_store->lookup(key, *value) == 0 || kv_store->size() < 128) { //if it exists of cache store is not full, then insert/update
+            kv_store->insert(key, value);
+            return 0; //exit right after since the method only writes to disk after a pair is evicted from the unordered cache map
+        }
+        else if ( (access(key_wrlock, F_OK) == -1 ) && access(key_rdlock, F_OK) == -1) { //check if not writer or reader locked
+            file = fopen(key_wrlock, "w"); //create a write lock
+            fclose(file);
+            kv_store->remove(pair->first); //remove the selected random pair and then..
+            kv_store->insert(key, value); // insert the our new one
+            pthread_mutex_unlock(&(*mutex));
+            break; //exit loop and proceed to writing to the file
+        }
+        pthread_mutex_unlock(&(*mutex));
+        //
+        // Critical Zone -- End
+        //
+
+        pthread_mutex_lock(&(*cond_mutex));
+        pthread_cond_wait(&(*condition), &(*cond_mutex)); //WAIT until further notice
+        pthread_mutex_unlock(&(*cond_mutex));
+    }
+
+    //Delete data file if it exists in order to replace with new value
+    if (access(pair->first, F_OK) != -1) {
+        remove(key);
+    }
+    file = fopen(pair->first, "w"); //create and..
+    fprintf(file, "%i", pair->second); //write the value of the evicted pair to the file
+    fclose(file);
+    //
+    // Critical Zone -- Start
+    //
+    pthread_mutex_lock(&(*mutex)); //remove the lock and exit
+    remove(key_wrlock);
+    pthread_mutex_unlock(&(*mutex));
+    //
+    // Critical Zone -- End
+    //
+    pthread_cond_broadcast(&(*condition)); //signal to other threads that lock state ahs changed
+    return 0;
+}
