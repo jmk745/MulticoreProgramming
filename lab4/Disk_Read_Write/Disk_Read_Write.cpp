@@ -391,6 +391,7 @@ int smart_write_to_file_and_cache (const char* key, int value, const char* hash,
             hash_store->lookup(pair->first, pair_hash); // retrieve the hash value
             hash_store->remove(pair->first); //remove hash from store as well and finally..
             kv_store->insert(key, value); // insert our new one
+            hash_store->insert(key, hash);
             pthread_mutex_unlock(&(*mutex));
             break; //exit loop and proceed to writing to the file
         }
