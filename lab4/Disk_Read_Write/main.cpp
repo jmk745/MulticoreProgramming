@@ -35,8 +35,11 @@ int main() {
 //	delete_from_file(key, &mutex1, &condition, &mutex2);
 //	printf("Deleted File\n");
 
-    write_to_file_and_cache(key, 1020304050, test_hash, k, h, &mutex1, &condition, &mutex2);
-	printf("Wrote to file...\n");
+//    write_to_file_and_cache(key, 1020304050, test_hash, k, h, &mutex1, &condition, &mutex2);
+
+    printf("STARTING\n");
+    smart_write_to_file_and_cache(key, 123, test_hash, k, h, &mutex1, &condition, &mutex2);
+    printf("Wrote to file...\n");
     read_from_file_and_cache(key, &val, return_hash, k, h, &mutex1, &condition, &mutex2);
 	printf("Read value from file.. --%i--  --%s--\n", val, return_hash);
     delete_from_file_and_cache(key, k, h, &mutex1, &condition, &mutex2);

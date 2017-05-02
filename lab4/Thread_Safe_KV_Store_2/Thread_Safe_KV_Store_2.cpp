@@ -204,7 +204,8 @@ template <typename K, typename V> std::pair<K, V>* Thread_Safe_KV_Store_2<K, V>:
 template <typename K, typename V> std::pair<K, V>* Thread_Safe_KV_Store_2<K, V>::get_random() {
 
     try {
-        pthread_rwlock_wrlock(&rw_lock);
+        pthread_rwlock_wrlock(&rw_lock);\
+        if (map->size() == 0) { return nullptr;}
         srand(time(NULL));
         int r = rand() % map->size();
         auto it = map->begin();

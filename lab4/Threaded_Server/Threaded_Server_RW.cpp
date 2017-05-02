@@ -186,7 +186,7 @@ void* thread (void* input) {
                 POST_COUNT++;
                 printf("Performing task_POST\n");
                 const char* hash = md5(container->key).c_str(); //process a hash
-                write_to_file_and_cache(data_key, container->value, hash, container->kv_store, container->md5_store, &mutex1, &condition, &mutex2);
+                smart_write_to_file_and_cache(data_key, container->value, hash, container->kv_store, container->md5_store, &mutex1, &condition, &mutex2);
                 respond_to_request(container);
                 printf("Completed task_POST\n");
             }

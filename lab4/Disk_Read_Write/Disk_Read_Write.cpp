@@ -358,14 +358,14 @@ int delete_from_file_and_cache(const char* key, Thread_Safe_KV_Store_2<std::stri
 
 
 //Smarter implementation of write.. Instead of write through, we do write back
-/*
-int smart_write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
+int smart_write_to_file_and_cache (const char* key, int value, const char* hash, Thread_Safe_KV_Store_2<std::string, int>* kv_store, Thread_Safe_KV_Store_2<std::string, std::string>* hash_store,
                              pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
 
     char key_wrlock[50];
     char key_rdlock[50];
     FILE* file;
     auto pair = kv_store->get_random(); //get random to define the type for auto
+    std::string pair_hash;
     while (1) {
 
         //
@@ -373,20 +373,24 @@ int smart_write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_St
         //
         pthread_mutex_lock(&(*mutex));
         pair = kv_store->get_random(); // get a random pair from kv_store
-        strcpy(key_wrlock, pair->first.c_str());
-        strcpy(key_rdlock , pair->first.c_str());
+        strcpy(key_wrlock, (pair) ? pair->first.c_str():"");
+        strcpy(key_rdlock , (pair) ? pair->first.c_str():"");
         strcat(key_wrlock, ".wrlock");
         strcat(key_rdlock, ".rdlock");
 
         if (kv_store->lookup(key, value) == 0 || kv_store->size() < 128) { //if it exists of cache store is not full, then insert/update
             kv_store->insert(key, value);
+            hash_store->insert(key, hash);
+            pthread_mutex_unlock(&(*mutex));
             return 0; //exit right after since the method only writes to disk after a pair is evicted from the unordered cache map
         }
         else if ( (access(key_wrlock, F_OK) == -1 ) && access(key_rdlock, F_OK) == -1) { //check if not writer or reader locked
             file = fopen(key_wrlock, "w"); //create a write lock
             fclose(file);
             kv_store->remove(pair->first); //remove the selected random pair and then..
-            kv_store->insert(key, value); // insert the our new one
+            hash_store->lookup(pair->first, pair_hash); // retrieve the hash value
+            hash_store->remove(pair->first); //remove hash from store as well and finally..
+            kv_store->insert(key, value); // insert our new one
             pthread_mutex_unlock(&(*mutex));
             break; //exit loop and proceed to writing to the file
         }
@@ -400,14 +404,16 @@ int smart_write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_St
         pthread_mutex_unlock(&(*cond_mutex));
     }
 
-    const char* pair_key =pair->first.c_str();
+    printf("B\n");
+    const char* pair_key = pair->first.c_str();
 
     //Delete data file if it exists in order to replace with new value
     if (access(pair_key, F_OK) != -1) {
         remove(key);
     }
     file = fopen(pair_key, "w"); //create and..
-    fprintf(file, "%i", pair->second); //write the value of the evicted pair to the file
+    fprintf(file, "%i\n", pair->second); //write the value of the evicted pair to the file
+    fprintf(file, "%s", pair_hash.c_str());
     fclose(file);
     //
     // Critical Zone -- Start
@@ -421,5 +427,3 @@ int smart_write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_St
     pthread_cond_broadcast(&(*condition)); //signal to other threads that lock state ahs changed
     return 0;
 }
-
- */
