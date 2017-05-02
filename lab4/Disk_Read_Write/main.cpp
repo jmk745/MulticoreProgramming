@@ -18,16 +18,31 @@ int main() {
 	int val;
 	const char* test_hash = "test_Hash_test_Hash";
 	char return_hash[40];
+//    std::string return_hash_string;
 	strcpy(return_hash, "NULL");
 
 	const char* key = "../data/JAMES";
 
-	write_to_file(key, 987654321, test_hash, &mutex1, &condition, &mutex2);
+    Thread_Safe_KV_Store_2<std::string, int>* k = new Thread_Safe_KV_Store_2<std::string, int>();
+    Thread_Safe_KV_Store_2<std::string, std::string>* h = new Thread_Safe_KV_Store_2<std::string, std::string>();
+
+
+
+//	write_to_file(key, 987654321, test_hash, &mutex1, &condition, &mutex2);
+//	printf("Wrote to file...\n");
+//	read_from_file(key, &val, return_hash, &mutex1, &condition, &mutex2);
+//	printf("Read value from file.. --%i--  --%s--\n", val, return_hash);
+//	delete_from_file(key, &mutex1, &condition, &mutex2);
+//	printf("Deleted File\n");
+
+    write_to_file_and_cache(key, 1020304050, test_hash, k, h, &mutex1, &condition, &mutex2);
 	printf("Wrote to file...\n");
-	read_from_file(key, &val, return_hash, &mutex1, &condition, &mutex2);
+    read_from_file_and_cache(key, &val, return_hash, k, h, &mutex1, &condition, &mutex2);
 	printf("Read value from file.. --%i--  --%s--\n", val, return_hash);
-	delete_from_file(key, &mutex1, &condition, &mutex2);
+    delete_from_file_and_cache(key, k, h, &mutex1, &condition, &mutex2);
+//    delete_from_file(key, &mutex1, &condition, &mutex2);
 	printf("Deleted File\n");
+
 	printf("Test Completed\n");
 	return 0;
 }

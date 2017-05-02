@@ -52,6 +52,7 @@ typedef struct{
     std::string key;
     int value;
     int return_value;
+    std::string return_hash;
     bool is_found;
     int new_sockfd;
     std::chrono::time_point<std::chrono::system_clock> start_time;
@@ -173,7 +174,9 @@ void* thread (void* input) {
             if(request_method.compare("GET")==0){ //get
                 GET_COUNT++;
                 printf("Performing task_GET\n");
-                int x = read_from_file_and_cache(data_key, &(container->return_value), container->kv_store, &mutex1, &condition, &mutex2);
+                char temp_hash[40];
+                int x = read_from_file_and_cache(data_key, &(container->return_value), temp_hash, container->kv_store, container->md5_store, &mutex1, &condition, &mutex2);
+                container->return_hash = std::string(temp_hash);
                 container->is_found = (x==0) ? true:false;
                 respond_to_request(container);
                 printf("Completed task_GET\n");
@@ -182,14 +185,14 @@ void* thread (void* input) {
             else if(request_method.compare("POST")==0){ //post
                 POST_COUNT++;
                 printf("Performing task_POST\n");
-                write_to_file_and_cache(data_key, container->value, container->kv_store, &mutex1, &condition, &mutex2);
-//                container->md5_store->insert(container->key, md5( container->key ));
+                const char* hash = md5(container->key).c_str(); //process a hash
+                write_to_file_and_cache(data_key, container->value, hash, container->kv_store, container->md5_store, &mutex1, &condition, &mutex2);
                 respond_to_request(container);
                 printf("Completed task_POST\n");
             }
             else if(request_method.compare("DELETE")==0){ //Delete
                 DELETE_COUNT++;
-                int x = delete_from_file_and_cache(data_key, container->kv_store, &mutex1, &condition, &mutex2);
+                int x = delete_from_file_and_cache(data_key, container->kv_store, container->md5_store, &mutex1, &condition, &mutex2);
                 container->is_found = (x==0) ? true:false;
                 respond_to_request(container);
                 printf("Completed task_DELETE\n");

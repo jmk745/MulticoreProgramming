@@ -4,6 +4,7 @@
 
 #include "Disk_Read_Write.h"
 #include "../Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.h"
+#include "../md5/md5.h"
 
 // R/W/D functions for server without a cache memory store
 
@@ -171,7 +172,7 @@ int delete_from_file(const char* key, pthread_mutex_t* mutex, pthread_cond_t* co
 
 // R/W/D functions for server with a cache memory store
 
-int write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
+int write_to_file_and_cache (const char* key, int value, const char* hash, Thread_Safe_KV_Store_2<std::string, int>* kv_store, Thread_Safe_KV_Store_2<std::string, std::string>* hash_store,
                              pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
 
     char key_wrlock[50];
@@ -193,9 +194,12 @@ int write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2<
             fclose(file);
             //if kv store is at max size, then remove an item at random and insert the new key
             if (kv_store->size() >= 128) {
-                kv_store->remove_random();
+                auto pair = kv_store->get_random();
+                kv_store->remove(pair->first);
+                hash_store->remove(pair->first);
             }
             kv_store->insert(key, value);
+            hash_store->insert(key, hash);
             pthread_mutex_unlock(&(*mutex));
             break; //exit loop and proceed to writing to the file
         }
@@ -214,7 +218,8 @@ int write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2<
         remove(key);
     }
     file = fopen(key, "w");
-    fprintf(file, "%i", value); //write to the file
+    fprintf(file, "%i\n", value); //write value to the file
+    fprintf(file, "%s\n", hash); //write hash to the file
     fclose(file);
     //
     // Critical Zone -- Start
@@ -229,7 +234,7 @@ int write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2<
     return 0;
 }
 
-int read_from_file_and_cache (const char* key, int* value, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
+int read_from_file_and_cache (const char* key, int* value, char* hash, Thread_Safe_KV_Store_2<std::string, int>* kv_store, Thread_Safe_KV_Store_2<std::string, std::string>* hash_store,
                               pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
 
     char key_wrlock[50];
@@ -247,6 +252,12 @@ int read_from_file_and_cache (const char* key, int* value, Thread_Safe_KV_Store_
         pthread_mutex_lock(&(*mutex));
 
         if (kv_store->lookup(key, *value) == 0) {
+            //the followjg embeded lines are need to convert from string to char* in ordered to return the hash
+            std::string temp_string;
+            hash_store->lookup(key, temp_string);
+            std::vector<char> temp_vector(temp_string.length() + 1);
+            std::strcpy(hash, temp_string.c_str());
+            pthread_mutex_unlock(&(*mutex));        /// Critical Zone End !!!!!! leaving function
             return 0; //item is found
         }
             //proceed to check into files
@@ -274,6 +285,7 @@ int read_from_file_and_cache (const char* key, int* value, Thread_Safe_KV_Store_
     file = fopen(key, "r");
     if (file) {
         fscanf(file, "%i", &(*value));
+        fscanf(file, "%s", hash);
         fclose(file);
         is_found = 0; //mark as found
     }
@@ -291,7 +303,7 @@ int read_from_file_and_cache (const char* key, int* value, Thread_Safe_KV_Store_
     return is_found;
 }
 
-int delete_from_file_and_cache(const char* key, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
+int delete_from_file_and_cache(const char* key, Thread_Safe_KV_Store_2<std::string, int>* kv_store, Thread_Safe_KV_Store_2<std::string, std::string>* hash_store,
                                pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex){
 
     char key_wrlock[50];
@@ -303,16 +315,15 @@ int delete_from_file_and_cache(const char* key, Thread_Safe_KV_Store_2<std::stri
     FILE* file;
 
     while (1) {
-
         //
         // Critical Zone -- Start
         //
         pthread_mutex_lock(&(*mutex));
-
         if ( (access(key_wrlock, F_OK) == -1 ) && access(key_rdlock, F_OK) == -1) { //check if not writer or reader locked
             file = fopen(key_wrlock, "w"); //create a write lock
             fclose(file);
             kv_store->remove(key); //delete from kv store and proceed onto files
+            hash_store->remove(key); // delete from the hash store
             pthread_mutex_unlock(&(*mutex));
             break; //exit loop and proceed to writing to the file
         }
@@ -347,7 +358,7 @@ int delete_from_file_and_cache(const char* key, Thread_Safe_KV_Store_2<std::stri
 
 
 //Smarter implementation of write.. Instead of write through, we do write back
-
+/*
 int smart_write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
                              pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
 
@@ -410,3 +421,5 @@ int smart_write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_St
     pthread_cond_broadcast(&(*condition)); //signal to other threads that lock state ahs changed
     return 0;
 }
+
+ */

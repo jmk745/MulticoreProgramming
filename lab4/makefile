@@ -7,11 +7,11 @@ server.out: Threaded_Server.o Thread_Safe_KV_Store_2.o Thread_Pool.o httpreq.o h
 
 #server with global lock
 server_g.out: Threaded_Server_G.o Thread_Safe_KV_Store.o Thread_Pool.o httpreq.o httpresp.o
-	${CC} Threaded_Server_G.o Thread_Safe_KV_Store.o Thread_Pool.o httpreq.o httpresp.o -o serverg.out -pthread
+	${CC} Threaded_Server_G.o Thread_Safe_KV_Store.o Thread_Pool.o httpreq.o httpresp.o -o server_g.out -pthread
 
 #server with read write to cache store and disk
 server_rw.out: Threaded_Server_RW.o Thread_Safe_KV_Store_2.o Thread_Pool.o httpreq.o httpresp.o Disk_Read_Write.o
-	${CC} Threaded_Server_RW.o Thread_Pool.o Thread_Safe_KV_Store_2.o httpreq.o httpresp.o Disk_Read_Write.o -o serverrw.out -pthread
+	${CC} Threaded_Server_RW.o Thread_Pool.o Thread_Safe_KV_Store_2.o httpreq.o httpresp.o Disk_Read_Write.o -o server_rw.out -pthread
 
 #server with only disk writes
 server_disk.out: Threaded_Server_Disk.o Thread_Safe_KV_Store_2.o Thread_Pool.o httpreq.o httpresp.o Disk_Read_Write.o
