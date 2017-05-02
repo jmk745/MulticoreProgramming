@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <pthread.h>
-#include "Disk_Read_Write.cpp"
+#include "Disk_Read_Write.h"
 
 
 
@@ -16,13 +16,18 @@ int main() {
 
 
 	int val;
+	const char* test_hash = "test_Hash_test_Hash";
+	char return_hash[40];
+	strcpy(return_hash, "NULL");
 
-	write_to_file("../data/JAMES", 987654321, &mutex1, &condition, &mutex2);
+	const char* key = "../data/JAMES";
+
+	write_to_file(key, 987654321, test_hash, &mutex1, &condition, &mutex2);
 	printf("Wrote to file...\n");
-	read_from_file("../data/JAMES", &val, &mutex1, &condition, &mutex2);
-	printf("Read value from file.. --%i--\n", val);
-	delete_from_file("data/JAMES", &mutex1, &condition, &mutex2);
+	read_from_file(key, &val, return_hash, &mutex1, &condition, &mutex2);
+	printf("Read value from file.. --%i--  --%s--\n", val, return_hash);
+	delete_from_file(key, &mutex1, &condition, &mutex2);
 	printf("Deleted File\n");
-
+	printf("Test Completed\n");
 	return 0;
 }

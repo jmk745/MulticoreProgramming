@@ -21,9 +21,9 @@
 
 //Basic Functions for reading and writing from files on disk
 
-int write_to_file (const char* key, int value, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
+int write_to_file (const char* key, int value, const char* hash, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
 
-int read_from_file (const char* key, int* value, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
+int read_from_file (const char* key, int* value, char* hash, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
 
 int delete_from_file(const char* key, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex);
 

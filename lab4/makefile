@@ -1,15 +1,24 @@
 CC=g++
 cFlag=-c -std=c++0x -pthread
 
+#Regular Server from lab2
 server.out: Threaded_Server.o Thread_Safe_KV_Store_2.o Thread_Pool.o httpreq.o httpresp.o
 	${CC} Threaded_Server.o Thread_Safe_KV_Store_2.o Thread_Pool.o httpreq.o httpresp.o -o server.out -pthread
 
-serverg.out: Threaded_Server_G.o Thread_Safe_KV_Store.o Thread_Pool.o httpreq.o httpresp.o
+#server with global lock
+server_g.out: Threaded_Server_G.o Thread_Safe_KV_Store.o Thread_Pool.o httpreq.o httpresp.o
 	${CC} Threaded_Server_G.o Thread_Safe_KV_Store.o Thread_Pool.o httpreq.o httpresp.o -o serverg.out -pthread
 
-serverrw.out: Threaded_Server_RW.o Thread_Safe_KV_Store_2.o Thread_Pool.o httpreq.o httpresp.o Disk_Read_Write.o
+#server with read write to cache store and disk
+server_rw.out: Threaded_Server_RW.o Thread_Safe_KV_Store_2.o Thread_Pool.o httpreq.o httpresp.o Disk_Read_Write.o
 	${CC} Threaded_Server_RW.o Thread_Pool.o Thread_Safe_KV_Store_2.o httpreq.o httpresp.o Disk_Read_Write.o -o serverrw.out -pthread
 
+#server with only disk writes
+server_disk.out: Threaded_Server_Disk.o Thread_Safe_KV_Store_2.o Thread_Pool.o httpreq.o httpresp.o Disk_Read_Write.o
+	${CC} Threaded_Server_Disk.o Thread_Pool.o Thread_Safe_KV_Store_2.o httpreq.o httpresp.o Disk_Read_Write.o -o server_disk.out -pthread
+
+#-----------------------------------------------
+#Object Files to create the excecutables
 Thread_Pool.o: Thread_Pool/Thread_Pool.cpp Thread_Pool/Thread_Pool.h
 	${CC} ${cFlag} Thread_Pool/Thread_Pool.cpp -o Thread_Pool.o
 
@@ -31,6 +40,9 @@ Threaded_Server_G.o: Threaded_Server/Threaded_Server_Global_Lock.cpp
 Threaded_Server_RW.o: Threaded_Server/Threaded_Server_RW.cpp
 	${CC} ${cFlag} Threaded_Server/Threaded_Server_RW.cpp -o Threaded_Server_RW.o
 
+Threaded_Server_Disk.o: Threaded_Server/Threaded_Server_Disk.cpp
+	${CC} ${cFlag} Threaded_Server/Threaded_Server_Disk.cpp -o Threaded_Server_Disk.o
+
 httpreq.o: httpreq/httpreq.cc httpreq/httpreq.hpp
 	${CC} ${cFlag} httpreq/httpreq.cc -o httpreq.o
 
@@ -44,4 +56,4 @@ Disk_Read_Write.o: Disk_Read_Write/Disk_Read_Write.cpp Disk_Read_Write/Disk_Read
 	${CC} ${cFlag} Disk_Read_Write/Disk_Read_Write.cpp -o Disk_Read_Write.o -pthread
 
 clean:
-	rm *.o server.out serverg.out serverrw.out
+	rm *.o server.out server_g.out server_rw.out server_disk.out

@@ -3,9 +3,11 @@
 //
 
 #include "Disk_Read_Write.h"
+#include "../Thread_Safe_KV_Store_2/Thread_Safe_KV_Store_2.h"
 
+// R/W/D functions for server without a cache memory store
 
-int write_to_file (const char* key, int value, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
+int write_to_file (const char* key, int value, const char* hash, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
 
     char key_wrlock[50];
     char key_rdlock[50];
@@ -42,7 +44,8 @@ int write_to_file (const char* key, int value, pthread_mutex_t* mutex, pthread_c
         remove(key);
     }
     file = fopen(key, "w");
-    fprintf(file, "%i", value); //write to the file
+    fprintf(file, "%i\n", value); //write to the file
+    fprintf(file, "%s", hash); //write to the file
     fclose(file);
 
     //
@@ -58,7 +61,7 @@ int write_to_file (const char* key, int value, pthread_mutex_t* mutex, pthread_c
     return 0;
 }
 
-int read_from_file (const char* key, int* value, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
+int read_from_file (const char* key, int* value, char* hash, pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
 
     char key_wrlock[50];
     char key_rdlock[50];
@@ -94,6 +97,7 @@ int read_from_file (const char* key, int* value, pthread_mutex_t* mutex, pthread
     file = fopen(key, "r");
     if (file) {
         fscanf(file, "%i", &(*value));
+        fscanf(file, "%s", hash);
         fclose(file);
     }
 
@@ -165,6 +169,7 @@ int delete_from_file(const char* key, pthread_mutex_t* mutex, pthread_cond_t* co
 
 
 
+// R/W/D functions for server with a cache memory store
 
 int write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
                              pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
@@ -341,14 +346,15 @@ int delete_from_file_and_cache(const char* key, Thread_Safe_KV_Store_2<std::stri
 }
 
 
+//Smarter implementation of write.. Instead of write through, we do write back
+
 int smart_write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_Store_2<std::string, int>* kv_store,
                              pthread_mutex_t* mutex, pthread_cond_t* condition, pthread_mutex_t* cond_mutex) {
 
     char key_wrlock[50];
     char key_rdlock[50];
     FILE* file;
-    auto pair;
-
+    auto pair = kv_store->get_random(); //get random to define the type for auto
     while (1) {
 
         //
@@ -356,12 +362,12 @@ int smart_write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_St
         //
         pthread_mutex_lock(&(*mutex));
         pair = kv_store->get_random(); // get a random pair from kv_store
-        strcpy(key_wrlock, pair->first);
-        strcpy(key_rdlock , pair->first);
+        strcpy(key_wrlock, pair->first.c_str());
+        strcpy(key_rdlock , pair->first.c_str());
         strcat(key_wrlock, ".wrlock");
         strcat(key_rdlock, ".rdlock");
 
-        if (kv_store->lookup(key, *value) == 0 || kv_store->size() < 128) { //if it exists of cache store is not full, then insert/update
+        if (kv_store->lookup(key, value) == 0 || kv_store->size() < 128) { //if it exists of cache store is not full, then insert/update
             kv_store->insert(key, value);
             return 0; //exit right after since the method only writes to disk after a pair is evicted from the unordered cache map
         }
@@ -383,11 +389,13 @@ int smart_write_to_file_and_cache (const char* key, int value, Thread_Safe_KV_St
         pthread_mutex_unlock(&(*cond_mutex));
     }
 
+    const char* pair_key =pair->first.c_str();
+
     //Delete data file if it exists in order to replace with new value
-    if (access(pair->first, F_OK) != -1) {
+    if (access(pair_key, F_OK) != -1) {
         remove(key);
     }
-    file = fopen(pair->first, "w"); //create and..
+    file = fopen(pair_key, "w"); //create and..
     fprintf(file, "%i", pair->second); //write the value of the evicted pair to the file
     fclose(file);
     //
