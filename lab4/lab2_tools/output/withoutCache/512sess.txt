@@ -1,0 +1,37 @@
++ + Thread Times + +
+Min: 328775
+Max: 24029230
+Avg: 642540.783418
+Med: 584782.000000
+Data Cleared
+
+
+httperf --client=0/1 --server=crunchy1.cims.nyu.edu --port=4000 --uri=/ --send-buffer=4096 --recv-buffer=16384 --ssl-protocol=auto --wsesslog=512,1.000,../../input/512sess.txt
+Maximum connect burst length: 1
+
+Total: connections 512 requests 51200 replies 51200 test-duration 52.802 s
+
+Connection rate: 9.7 conn/s (103.1 ms/conn, <=2 concurrent connections)
+Connection time [ms]: min 77.7 avg 103.1 max 220.5 median 101.5 stddev 13.5
+Connection time [ms]: connect 0.1
+Connection length [replies/conn]: 100.000
+
+Request rate: 969.7 req/s (1.0 ms/req)
+Request size [B]: 301.0
+
+Reply rate [replies/s]: min 943.4 avg 973.0 max 1020.4 stddev 25.9 (10 samples)
+Reply time [ms]: response 1.0 transfer 0.0
+Reply size [B]: header 62.0 content 28.0 footer 0.0 (total 90.0)
+Reply status: 1xx=0 2xx=51200 3xx=0 4xx=0 5xx=0
+
+CPU time [s]: user 2.87 system 49.90 (user 5.4% system 94.5% total 99.9%)
+Net I/O: 371.6 KB/s (3.0*10^6 bps)
+
+Errors: total 0 client-timo 0 socket-timo 0 connrefused 0 connreset 0
+Errors: fd-unavail 0 addrunavail 0 ftab-full 0 other 0
+
+Session rate [sess/s]: min 9.40 avg 9.70 max 10.20 stddev 0.32 (512/512)
+Session: avg 1.00 connections/session
+Session lifetime [s]: 0.1
+Session failtime [s]: 0.0
+Session length histogram: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 512
