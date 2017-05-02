@@ -365,7 +365,8 @@ int smart_write_to_file_and_cache (const char* key, int value, const char* hash,
     char key_rdlock[50];
     FILE* file;
     auto pair = kv_store->get_random(); //get random to define the type for auto
-    std::string pair_hash;
+    std::string pair_key, pair_hash;
+    int pair_value;
     while (1) {
 
         //
@@ -387,11 +388,16 @@ int smart_write_to_file_and_cache (const char* key, int value, const char* hash,
         else if ( (access(key_wrlock, F_OK) == -1 ) && access(key_rdlock, F_OK) == -1) { //check if not writer or reader locked
             file = fopen(key_wrlock, "w"); //create a write lock
             fclose(file);
-            kv_store->remove(pair->first); //remove the selected random pair and then..
+            pair_key = pair->first;
+            kv_store->lookup(pair_key, pair_value);
             hash_store->lookup(pair->first, pair_hash); // retrieve the hash value
+
+            kv_store->remove(pair->first); //remove the selected random pair and then..
             hash_store->remove(pair->first); //remove hash from store as well and finally..
+
             kv_store->insert(key, value); // insert our new one
             hash_store->insert(key, hash);
+
             pthread_mutex_unlock(&(*mutex));
             break; //exit loop and proceed to writing to the file
         }
@@ -405,17 +411,15 @@ int smart_write_to_file_and_cache (const char* key, int value, const char* hash,
         pthread_mutex_unlock(&(*cond_mutex));
     }
 
-    printf("B\n");
-    const char* pair_key = pair->first.c_str();
     printf("C\n");
     //Delete data file if it exists in order to replace with new value
-    if (access(pair_key, F_OK) != -1) {
+    if (access(pair_key.c_str(), F_OK) != -1) {
         remove(key);
     }
     printf("D\n");
-    file = fopen(pair_key, "w"); //create and..
+    file = fopen(pair_key.c_str(), "w"); //create and..
     printf("E\n");
-    fprintf(file, "%i\n", pair->second); //write the value of the evicted pair to the file
+    fprintf(file, "%i\n", pair_value); //write the value of the evicted pair to the file
     printf("F\n");
     fprintf(file, "%s", pair_hash.c_str());
     fclose(file);

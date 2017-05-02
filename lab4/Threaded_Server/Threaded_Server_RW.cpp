@@ -84,6 +84,10 @@ void SIGINT_handler(int signo)
 
         printf("Data Cleared\n\n");
 
+        //Clean out the directory
+        printf("Clearing data storage\n");
+        system("rm -rf data/*");
+
         printf("Press 'y' to close socket or any other key to continue running..\n");
         char c;
         std::cin >> c;
