@@ -407,13 +407,16 @@ int smart_write_to_file_and_cache (const char* key, int value, const char* hash,
 
     printf("B\n");
     const char* pair_key = pair->first.c_str();
-
+    printf("C\n");
     //Delete data file if it exists in order to replace with new value
     if (access(pair_key, F_OK) != -1) {
         remove(key);
     }
+    printf("D\n");
     file = fopen(pair_key, "w"); //create and..
+    printf("E\n");
     fprintf(file, "%i\n", pair->second); //write the value of the evicted pair to the file
+    printf("F\n");
     fprintf(file, "%s", pair_hash.c_str());
     fclose(file);
     //
