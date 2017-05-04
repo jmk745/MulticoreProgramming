@@ -26,6 +26,7 @@ int write_to_file (const char* key, int value, const char* hash, pthread_mutex_t
         pthread_mutex_lock(&(*mutex));
         if ( (access(key_wrlock, F_OK) == -1 ) && access(key_rdlock, F_OK) == -1) { //check if not writer or reader locked
             file = fopen(key_wrlock, "w"); //create a write lock
+            fsync(fileno(file)); //ensure that all is written to disk
             fclose(file);
             pthread_mutex_unlock(&(*mutex));
             break; //exit loop and proceed to writing to the file
@@ -47,6 +48,7 @@ int write_to_file (const char* key, int value, const char* hash, pthread_mutex_t
     file = fopen(key, "w");
     fprintf(file, "%i\n", value); //write to the file
     fprintf(file, "%s", hash); //write to the file
+    fsync(fileno(file)); //ensure that all is written to disk
     fclose(file);
 
     //
@@ -79,6 +81,7 @@ int read_from_file (const char* key, int* value, char* hash, pthread_mutex_t* mu
         pthread_mutex_lock(&(*mutex));
         if (access(key_wrlock, F_OK) == -1) { //if not write locked, then proceed
             file = fopen(key_rdlock, "w");  //Create the rd_lock on disk
+            fsync(fileno(file)); //ensure that all is written to disk
             fclose(file);
             pthread_mutex_unlock(&(*mutex));
             break; //leave the loop after creating the lock file and proceed to reading from file
@@ -99,6 +102,7 @@ int read_from_file (const char* key, int* value, char* hash, pthread_mutex_t* mu
     if (file) {
         fscanf(file, "%i", &(*value));
         fscanf(file, "%s", hash);
+        fsync(fileno(file)); //ensure that all is written to disk
         fclose(file);
     }
 
@@ -133,6 +137,7 @@ int delete_from_file(const char* key, pthread_mutex_t* mutex, pthread_cond_t* co
         pthread_mutex_lock(&(*mutex));
         if ( (access(key_wrlock, F_OK) == -1 ) && access(key_rdlock, F_OK) == -1) { //check if not writer or reader locked
             file = fopen(key_wrlock, "w"); //create a write lock
+            fsync(fileno(file)); //ensure that all is written to disk
             fclose(file);
             pthread_mutex_unlock(&(*mutex));
             break; //exit loop and proceed to writing to the file
@@ -191,6 +196,7 @@ int write_to_file_and_cache (const char* key, int value, const char* hash, Threa
         pthread_mutex_lock(&(*mutex));
         if ( (access(key_wrlock, F_OK) == -1 ) && access(key_rdlock, F_OK) == -1) { //check if not writer or reader locked
             file = fopen(key_wrlock, "w"); //create a write lock
+            fsync(fileno(file)); //ensure that all is written to disk
             fclose(file);
             //if kv store is at max size, then remove an item at random and insert the new key
             if (kv_store->size() >= 128) {
@@ -220,6 +226,7 @@ int write_to_file_and_cache (const char* key, int value, const char* hash, Threa
     file = fopen(key, "w");
     fprintf(file, "%i\n", value); //write value to the file
     fprintf(file, "%s\n", hash); //write hash to the file
+    fsync(fileno(file)); //ensure that all is written to disk
     fclose(file);
     //
     // Critical Zone -- Start
@@ -263,6 +270,7 @@ int read_from_file_and_cache (const char* key, int* value, char* hash, Thread_Sa
             //proceed to check into files
         else if (access(key_wrlock, F_OK) == -1) { //if not write locked, then proceed
             file = fopen(key_rdlock, "w");  //Create the rd_lock on disk
+            fsync(fileno(file)); //ensure that all is written to disk
             fclose(file);
             pthread_mutex_unlock(&(*mutex));
             break; //leave the loop after creating the lock file and proceed to reading from file
@@ -286,6 +294,7 @@ int read_from_file_and_cache (const char* key, int* value, char* hash, Thread_Sa
     if (file) {
         fscanf(file, "%i", &(*value));
         fscanf(file, "%s", hash);
+        fsync(fileno(file)); //ensure that all changes is written to disk
         fclose(file);
         is_found = 0; //mark as found
     }
@@ -321,6 +330,7 @@ int delete_from_file_and_cache(const char* key, Thread_Safe_KV_Store_2<std::stri
         pthread_mutex_lock(&(*mutex));
         if ( (access(key_wrlock, F_OK) == -1 ) && access(key_rdlock, F_OK) == -1) { //check if not writer or reader locked
             file = fopen(key_wrlock, "w"); //create a write lock
+            fsync(fileno(file)); //ensure that all is written to disk
             fclose(file);
             kv_store->remove(key); //delete from kv store and proceed onto files
             hash_store->remove(key); // delete from the hash store
@@ -387,6 +397,7 @@ int smart_write_to_file_and_cache (const char* key, int value, const char* hash,
         }
         else if ( (access(key_wrlock, F_OK) == -1 ) && access(key_rdlock, F_OK) == -1) { //check if not writer or reader locked
             file = fopen(key_wrlock, "w"); //create a write lock
+            fsync(fileno(file)); //ensure that all is written to disk
             fclose(file);
             pair_key = pair->first;
             kv_store->lookup(pair_key, pair_value);
@@ -422,6 +433,7 @@ int smart_write_to_file_and_cache (const char* key, int value, const char* hash,
     fprintf(file, "%i\n", pair_value); //write the value of the evicted pair to the file
     printf("F\n");
     fprintf(file, "%s", pair_hash.c_str());
+    fsync(fileno(file)); //ensure that all is written to disk
     fclose(file);
     //
     // Critical Zone -- Start
