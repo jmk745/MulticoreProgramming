@@ -1,5 +1,5 @@
 
-Multicore Programming - Lab 2 - Thread_Pool
+Multicore Programming - Lab 4 - A Complete Storage System
 @Author James Maciej Krywin
 @Net ID: jmk745
 
@@ -12,30 +12,35 @@ Production Information
 ---------------------------------------------
 How to Compile and Run
 
-	-In terminal navigate to directory lab3
-        and run the following terminal command: "make"
-        This will run the makefile and compile all of the present files into an executable named "server.out"
+	-In terminal navigate to directory lab4
+        and run the following terminal command: "make server_rw.out" and "make server_disk.out"
+
+	       These two make commands will run the makefile and compile all of the present files into 2 executables.
+		1. server_rw.out
+		2. server_disk.out
 
 
-	-Run the compiled executable with the following command:
-                        "./server.out -p <port_number> -n <number_of_threads>"
+		server_disk.out is the server seen from lab3 with the addition of an on disk store.		
 
-	
-	-To compile a threaded_server with global locks runt he following makefile command:
-		“make server.out”
+		server_rw.out is a modification of server_disk.out
+			Instead of just writing directly to the disk, the server_rw.out will store keys into a key-value store. This addendum acts as a cache and 
+			decreases the time that a thread would potentially spend waiting for a disk I/O to complete.
 
-	-Run the compiled executable with the following command:
-                        "./serverg.out -p <port_number> -n <number_of_threads>"
+	-Run the compiled executable with the following commands:
+                        "./server_rw.out -p <port_number> -n <number_of_threads>"
+			
+			"./server_disk.out -p <port_number> -n <number_of_threads>"
+
 	
 
 ***Note to get the server side statistics,press ctrl + c to send a SIGINT.
-The server will stop, print out all results and clean the stored data, and ask if you want to continue. Enter y to exit out of server safely or any other key to continue running further tests.
+The server will stop, print out all results, clean the stored data, and ask if you want to continue. Enter y to exit out of server safely or any other key to continue running further tests.
 
 
 ---------------------------------------------
 Description
 
-    This lab3 submission contains 7 directories that compile into a multithreaded server.
+    This lab4 submission contains 8 directories that compile into a multithreaded server.
 
     The Thread_Pool directory holds files responsible for the Thread_Pool class. An instance of this class
     handles all spawned threads (conditon variables) and delegates the tasks assigned to its queue (using the add_task method)
@@ -46,6 +51,10 @@ Description
     The Thread_Safe_Queue directory holds a new, but relatively the same implementation, of the previously submitted ThreadSafeListening Queue. This version allows users to add tasks and removes the listening capability.
 
     The Threaded_Server holds the main .cpp file that hodls the main function need for executing all of the given DS in a coherent running server.
+
+    The Data directory is empty but holds all of the potential text files used to store the keys and values.
+
+    The Disk_Read_Write directory holds the newly implemented disk I/O functions for this lab. 
 
     The remaining directories were written by outside sources.
 
@@ -80,6 +89,15 @@ Description
         - Threaded_Server.cpp:      		implementation of a running server
                                         		during running this binary, it inits a thread pool and the Thread_Safe_KV_Store_2 classes
                                         		runs in an infinite loop in order to accept all incoming requests
+
+    - Disk_Read_Write.cpp
+	- makefile:				used to compile the files of this folder
+	- main.cpp:				main function that inits and tests runs the provided read/write functions
+	- Disk_Read_Write.cpp:			contains the read/write/delete functions to access the disk files 
+	- Disk_Read_Write.h:
+
+   - Data	
+	- this directory holds all the files used to store the keys and values.
 
     - md5
         - provided by (http://www.bzflag.org)

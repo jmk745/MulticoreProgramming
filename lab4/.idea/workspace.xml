@@ -11,8 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d9cb93cc-6377-4e36-ab3d-4f717a337e12" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../lab3/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../lab3/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Disk_Read_Write/Disk_Read_Write.cpp" afterPath="$PROJECT_DIR$/Disk_Read_Write/Disk_Read_Write.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -414,12 +412,12 @@
       <workItem from="1493695749260" duration="9574000" />
       <workItem from="1493764892492" duration="66000" />
       <workItem from="1493765176674" duration="3560000" />
-      <workItem from="1493865001457" duration="399000" />
+      <workItem from="1493865001457" duration="685000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53548000" />
+    <option name="totallyTimeSpent" value="53834000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
