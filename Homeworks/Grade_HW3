@@ -1,0 +1,2 @@
+80 / 100
+In 1, missing terms of atomicity and race condition, and one solution should be of local variable-not CAS. In 5th, pros and cons could be efficiency and less flexibility
